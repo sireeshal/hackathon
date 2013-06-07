@@ -1,0 +1,77 @@
+/* Reset all page elements to 0 */
+@import url("reset.css");
+
+/* Base Colors */
+/* Beige #E8E1D5 (background) */
+/* Blue #195ca0 (links) */
+/* Gray #7f7f7f (seperators) */ 
+/* Orange #e84e0f (highlight) */
+
+.basecollege {
+    font: 100%/1.4em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    background: #E8E1D5;
+    min-width: 960px;
+}
+
+a {
+    color: #0c4682;
+    text-decoration: underline;
+}
+
+.accessibleLabel {
+    margin-left: -100000px;
+    /* move label off page */
+}
+
+.leftColumn {
+    float: left;
+    width: 400px;
+    /* defining the width of left and right globally */
+}
+
+.rightColumn {
+    margin-left: 415px;
+}
+
+.clearAllFloats {
+    height: 1px;
+    clear: both;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+}
+
+
+/* informationContainer classes */
+.informationContainer {
+    margin: 15px 40px;
+    height: 100px;
+}
+
+.announcement {
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid #7f7f7f;
+    background-color: #ececec;
+    font-size: 80%;
+    padding: 5px 15px;
+}
+
+/* contentContainer classes */
+.contentContainer {
+    margin: 0 40px 35px;
+}
+
+.contentContainer .leftColumn {
+    border-top: 1px solid #7f7f7f;
+    border-bottom: 1px solid #7f7f7f;
+    background-color: #fff;
+}
+
+.contentContainer .rightColumn {
+    border-top: 4px solid #e84e0f;
+    border-bottom: 1px solid #7f7f7f;
+    background: #fff url(../images/rightColumnBackground.png) repeat-x;
+}

@@ -1,0 +1,23 @@
+{
+  "statusCode": 200,
+  "status": "success",
+  "data": {
+    "id": "1234",
+    "identityId": "5678",
+    "defaultInstitutionSourceType": "google",
+    "defaultInstitutionSourceKey": "testedu.info",
+    "hasInstitutionAdminAreaAccess": true,
+    "hasSuperAdminAreaAccess": false,
+    "institutionName": "testedu",
+    "institutionSlug": "testedu",
+    "behaviors":["social_beta", "google_domain"],
+
+    "enrollments": [{
+      "institutionId": "4f54f4f0990f3a8b9f55a870",
+      "firstName": "Mike",
+      "lastName": "Brevoort",
+      "email": "mike@testedu.info",
+      "personId": "4f610976990f3a8b9f55a9b4"
+    }]
+  }
+}

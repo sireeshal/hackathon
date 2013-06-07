@@ -1,0 +1,13 @@
+GOOGLE TOOLBAR WIDGETS AND API SERVICE PROXY
+
+To package for deployment simply run:
+make package
+
+Then copy ./dist to Perforce /system/dev/ei-berlin/google_service_proxy and 
+ultimately to /opt/google_service_proxy on the server.
+
+To deploy, cd into /opt/google_service_proxy/deploy/scripts and 
+run ./vm_install.sh 
+
+This will install node and npm, create the service and configu and start
+the service

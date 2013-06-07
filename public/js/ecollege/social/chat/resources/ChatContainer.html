@@ -1,0 +1,38 @@
+<div style="width: 100%; height: 100%;">
+	<div class="eCollegeChat" dojoType="dijit.layout.BorderContainer" gutters="false" dojoAttachPoint="chatContainerNode">
+		<div class="chatWindow" dojoType="dijit.layout.ContentPane" region="center">
+			<div dojoAttachPoint="metaNode" class="meta">
+				<span class="avatar">
+					<img src="${imgPath}/noAvatar.png" width="40px" height="40px" alt=" " dojoAttachPoint="avatarNode">
+				</span>
+				<div class="classmateName" dojoAttachPoint="classmateNameNode"></div>
+				<div class="classmateStatus" dojoAttachPoint="classmateStatusNode"></div>
+			</div>
+			<div dojoAttachPoint="dialogNode" class="dialogContainer">
+				<!--
+				   -<div class="timestamp">11:32</div>
+				   -<div class="dialog">
+				   -    <span class="classmateChat">Other:</span>
+				   -    Importunus, epulae dignissim ad zelus bis blandit secundum multo iaceo eum commodo ut refero. Jumentum verto ut ut quadrum lenis similis in cogo duis vel.
+				   -</div>
+				   -<div class="timestamp">11:34</div>
+				   -<div class="dialog">
+				   -    <span class="myChat">Me:</span>
+				   -    Importunus, epulae dignissim ad zelus bis blandit secundum multo iaceo eum commodo ut refero. Jumentum verto ut ut quadrum lenis similis in cogo duis vel.
+				   -</div>
+				   -->
+			</div>
+			<img class="IEBG" src="${imgPath}/chatWindowBG.png">
+		</div>
+		<div class="controls" dojoType="dijit.layout.BorderContainer" design="sidebar" region="bottom" gutters="false">
+			<div class="entry" dojoType="dijit.layout.ContentPane" region="center">
+				<textarea dojoAttachPoint="chatEntryNode" dojoAttachEvent="onkeypress: handleKeys" cols="160" rows="2"></textarea>
+				<img class="IEBG" src="${imgPath}/chatWindowBG.png">
+			</div>
+			<div class="sendContainer" dojoType="dijit.layout.ContentPane" region="right">
+				<input dojoAttachPoint="sendButton" dojoAttachEvent="onclick: sendMessage" type="button" value="Send" class="sendButton">
+			</div>
+		</div>
+		<img class="IEBG" src="${imgPath}/chatContainerBG.png">
+	</div>
+</div>

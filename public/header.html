@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Toolbar Tester</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="/style/basecollege.css" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dojo/resources/dojo.css" />
+	<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dijit/themes/claro/claro.css" />
+
+	<script>
+		var dojoConfig = {
+			isDebug: true,
+			debugAtAllCosts: true,
+			parseOnLoad: false,
+			baseUrl: '/',
+			modulePaths: {
+				ecollege: '/js/ecollege',
+				mustache: '/js/mustache'
+			}
+		};
+
+		function getURLParameter( name ) {
+		  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+		  var regexS = "[\\?&]"+name+"=([^&#]*)";
+		  var regex = new RegExp( regexS );
+		  var results = regex.exec( window.location.href );
+		  return (results == null ) ? "" : results[1];
+		}
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dojo/dojo.xd.js.uncompressed.js"></script>
+	
+	<style>
+		label { width:100px; float:left; display: block; margin-top: 10px; }
+		input { padding: 5px; margin-top: 10px; width: 200px; clear: right; float:left; display: block;}
+		form  { padding-bottom: 30px; margin-bottom: 30px; clear: both;}
+    
+    .googleConsumer {}
+
+    .googleConsumer .hidden{
+      display: none;
+    }
+
+    .googleConsumer .oauthResult {
+      width:580px;
+      height: auto;
+      border: 1px solid;
+      -moz-border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -o-border-radius: 10px;
+      display: block;
+      margin:auto;
+      margin-top: 10px;
+    }
+        
+    .googleConsumer .dijitButtonNode {
+      background: none repeat scroll 0 0 #4274B2;
+      color: #CECECE;
+      font-size: 12px;
+      font-weight: normal;
+      line-height: 30px;
+      width: 200px;
+      margin: 10px 0px 0px 25px;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -o-border-radius: 5px;            
+    }       
+     
+    .googleConsumer .addGoogleTokenInfo {
+      font-size:12px;
+      color: #848484;    
+      word-wrap: break-word;
+      width:560px;
+    }
+    
+    .googleConsumer .addGoogleCheck {
+      width: auto !important;
+      margin: 10px 5px 0 15px;      
+    }
+    
+    .googleConsumer .addGoogleCheckLabel {
+      font-size:14px; 
+      width: auto;
+      margin-top: 5px !important;
+    }
+    
+    .googleConsumer .addGoogleResult {
+      padding: 10px;
+    }
+
+	</style>
+	
+</head>	
+<body class="basecollege" style="padding-top:50px;">
+	
+	<div id="login" style="padding:50px; width:400px; margin:auto; display:none" >
+		<form action="" method="POST">
+			<label for="email">Email</label>
+			<input type="text" name="email" value=""/>
+			<label for="password">Password</label>
+			<input type="text" name="password" value="12345"/>
+			<input id="submit_button" type="submit" style="margin: 10px 0 0 100px;"/>
+		</form>
+	</div>
+
+	<script>
+	  var whit_access_token = getURLParameter("token");
+      var whit_refresh_token = getURLParameter("refresh_token");
+		
+		if(whit_access_token != "") {
+			dojo.require("ecollege.toolbar.Toolbar");
+			 dojo.addOnLoad(function(){
+				 window.ecollege.toolbar.Toolbar.init({
+				   server: "", 
+				   whit_access_token: whit_access_token, 
+				   whit_refresh_token: whit_refresh_token 
+				   /*, consumer:'ph' */
+				 });
+			 });			
+		}
+		else {
+			dojo.query("#login").style({ display:"inherit" });
+		}
+
+		dojo.require("dojo.io.script");
+		dojo.connect(dojo.byId("submit_button"), "onclick", function(evt) {
+		    dojo.stopEvent(evt);
+		    dojo.io.script.get({
+		        url: "/auth",
+		        callbackParamName: "callback",
+		        content: {
+		            email: dojo.query("input:email")[0].value,
+		            password:dojo.query("input[name$=password]")[0].value
+		        },
+		        load: function(data) {
+		            var auth_token = data.data && data.data.data && data.data.data.authToken;
+		            console.log(data, auth_token);
+		            if(auth_token) {
+		                window.location = window.location.href + "?token=" + encodeURIComponent(auth_token);
+		            }
+		        },
+		        error: function(error) {
+		            targetNode.innerHTML = "An unexpected error occurred: " + error;
+		        }
+		    });
+		});
+	</script>
+</body>
+</html>

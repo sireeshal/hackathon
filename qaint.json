@@ -1,0 +1,168 @@
+{
+	"PORT": 8080,
+	"NUM_WORKERS": 1,
+	"USE_PORT_AUTHORITY": false,
+	"PORT_AUTHORITY_HOST": "localhost",
+	"PORT_AUTHORITY_PORT": 5001,
+
+	"STATSD_HOST": "localhost",
+	"STATSD_PORT": 8085,
+
+	"SECURE": false,
+
+	"GOOGLE_OAUTH1_CLIENT_KEY": "1050185146238.apps.googleusercontent.com",
+	"GOOGLE_OAUTH1_CLIENT_SECRET": "8TZ2siOogcaYl3UnQJHLMRgI",
+	"GOOGLE_OAUTH2_CLIENT_KEY": "374574440745.apps.googleusercontent.com",
+	"GOOGLE_OAUTH2_CLIENT_SECRET": "eErfMyNNa_8oKDu_XLrMCJd3",
+	"GOOGLE_ANALYTICS_TRACKER": "UA-26284170-2",
+
+	"WHITTAKER_ROOT_URL": "http://svc.admin.berlin.ecollege-labs.internal:3001",
+	"WHITTAKER_CONSUMER_ROOT_URL": "http://svc.admin.berlin.ecollege-labs.internal/google-service/google/sso",
+
+	"WINDMILL_ROOT_URL": "http://svc.idm.berlin.ecollege-labs.internal:3003",
+
+	"WSOD_M_ROOT_URL": "http://m-api.ecollege-labs.com",
+	"WSOD_PH_ROOT_URL": "http://ph-api.ecollege-labs.com",
+	"WSOD_CLIENT_ID": "da05cb28-a0e7-4ba0-8fa8-1ccbd3fd58b0",
+
+	"AFFINITY_PERSONA_ROOT_URL": "http://persona.ecollege-labs.com",
+	"AFFINITY_PRESENCE_ROOT_URL": "http://presence.ecollege-labs.com",
+	"XMPP_ROOT_URL": "http://xmpp.ecollege-labs.com",
+	"XMPP_DOMAIN": "xmpp-lmqa",
+
+	"ROOT_URL": "http://toolbar.ecollege-labs.com:8080",
+	"PH_ROOT_URL": "http://dashboard.berlin.ecollege-labs.com",
+	"ADMIN_ROOT_URL": "http://admin.berlin.ecollege-labs.com",
+	"HELP_SERVICE": {
+		"DEFAULT_ROOT_URL": "http://whyberlin2011.custhelp.com",
+		"SERVICE_URL": "http://svc.admin.berlin.ecollege-labs.internal:3001/rightnowhelp"
+	},
+	"STATIC_ROOT_URL": "http://static.ecollege-labs.com",
+	"READYPOINT_HELP_URL": "http://help.ecollege.com/readypointhelp/en-us/default.htm",
+	"SHARE_ROOT_URL": "http://socialblogs.ecollege-labs.com/Transfer.html",
+	"SHARE_FEATURE_FILTER_ON": true,
+
+	"LOGGING_DIRECTORY": "/opt/log/toolbar",
+
+	"METRICS_COLLECTOR_PORT": 8081,
+	"METRICS_PORT": 8082,
+
+	"WORKERS": 1,
+	"mongodbConnectionUrl": "mongodb://dev-pri-10-100-mongodb-01.asskickery.us/toolbar",
+
+	"GCO_SCOPE": "https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/calendar+https://docs.google.com/feeds+https://www.googleapis.com/auth/docs+https://mail.google.com/mail/feed/atom",
+	"GCO_STATE": "http://toolbar.ecollege-labs.com",
+	"GCO_REDIRECT_URI": "http://toolbar.ecollege-labs.com:8080/google-authorize-success",
+	"GCO_RESPONSE_TYPE": "code",
+	"GCO_ACCESS_TYPE": "offline",
+	"CHAMBER_ROOT_URL": "http://chamber.ecollege-labs.com:8400",
+	"GOOGLE_ROOT_REFRESH_URL": "https://accounts.google.com/o/oauth2/token",
+
+	"COURSE_FILTER_BUFFER": 1,
+	"REFRESH_INTERVAL": 600000,
+
+	"ALIAS_ROOT_URL": "https://alias.pearsonopenclass.com",
+	"ROOT_URL_PERSONA": "http://persona.ecollege-labs.com",
+
+	"WINDMILL": {
+		"ROOT_URL": "http://login.berlin.ecollege-labs.com/service",
+		"KEY": "EAAQDGhtr3wAZorvll3AHBoNkPzYRejx3HeJU5SOhncSo90",
+		"KEY_MONIKER": "assertion",
+		"TOKEN_EXPIRATION_OFFSET": "300000",
+		"TOKEN_RETRY_INTERVAL": "2000"
+	},
+
+	"KEYSTORE": {
+		"ROOT_URL": "http://datasecure.ecollegeqa.net:3000",
+		"AES_KEY_MONIKER": "aExampleKeyAES256"
+	},
+
+	"PROSPERO_ENABLED": true,
+
+	"prosperoConfig": {
+		"rootUrl": "http://prospero.ecollege-labs.com",
+		"port": "80",
+		"principal": "ONE",
+		"sharedKey": "1234567890123456"
+	},
+
+	"GS_OAUTH1_CLIENT_KEY": "8p9ikt7aun8k",
+	"GS_OAUTH1_CLIENT_SECRET": "z5zxzv76pamvr1pners1j89jqts5k0yh",
+
+	"socialConfig": {
+		"dashboard_url": "/?token=${token}&refresh_token=${refresh_token}",
+		"admin_url": "https://admin.berlin.ecollege-labs.com/institution-admin.html?token=${token}&refresh_token=${refresh_token}",
+		"profile_url": "/profile/${affinityId}?token=${token}&refresh_token=${refresh_token}",
+		"settings_url": "/profileEdit/${affinityId}?token=${token}&refresh_token=${refresh_token}",
+		"help_url": "http://openclass.custhelp.com/app/answers/list/p/3354,3769/exp/0/noIntercept/1/session/L3RpbWUvMTM1MDA2OTQ5Ni9zaWQvdm42X0p5OGw%3D",
+		"exchange_url": "https://exchange-develop.prsn.us/api/toolbar/dojo/exchangelink.js",
+		"get_satisfaction_url": "https://getsatisfaction.com/openclass/products/openclass_coming_soon",
+
+		"notifications_root_url": "http://10.52.201.176:8080",
+		"notifications_url": "/notifications/unread/user/${affinity_id}?token=${token}",
+		"notifications_read_url": "/notifications/read/user/${affinity_id}?token=${token}",
+		"notifications_all_url": "/notifications/all/user/${affinity_id}?token=${token}",
+		"notifications_polling_interval": 10,
+		"notifications_method": "polling"
+	},
+
+	"openClassConfig": {
+		"dashboard_url": "http://dashboard.berlin.ecollege-labs.com/transfer.html?token=${token}&refresh_token=${refresh_token}",
+		"admin_url": "http://admin.berlin.ecollege-labs.com/institution-admin.html?token=${token}&refresh_token=${refresh_token}",
+		"profile_url": "http://dashboard.berlin.ecollege-labs.com/transfer.html?action=editProfile&token=${token}",
+		"share_url": "http://socialblogs.ecollege-labs.com/Transfer.html?token=${token}&refresh_token=${refresh_token}",
+		"help_url": "http://openclass.custhelp.com/",
+		"exchange_url": "https://exchange-develop.prsn.us/api/toolbar/dojo/exchangelink.js"
+	},
+
+	"LOGGER": {
+		"levels": [
+			{
+				"name": "web_access",
+				"color": "green"
+			},
+			{
+				"name": "debug3",
+				"color": "white"
+			},
+			{
+				"name": "debug2",
+				"color": "white"
+			},
+			{
+				"name": "debug1",
+				"color": "white"
+			},
+			{
+				"name": "info",
+				"color": "blue"
+			},
+			{
+				"name": "warn",
+				"color": "yellow"
+			},
+			{
+				"name": "error",
+				"color": "red"
+			}
+		],
+		"transports": [
+			{
+				"type": "FILE",
+				"options": {
+					"level": "web_access",
+					"timestamp": true,
+					"filename": "/tmp/ec_toolbar.log"
+				}
+			},
+			{
+				"type": "CONSOLE",
+				"options": {
+					"level": "debug2",
+					"timestamp": true,
+					"colorize": true
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,64 @@
+{
+	"name": "berlin-toolbar-service",
+	"description": "Berlin Toolbar Service",
+	"version": "5.13.10",
+	"author": "Mike Brevoort <mikebre@ecollege.com>",
+	"contributors": [
+		"Mike Brevoort <mikebre@ecollege.com>",
+		"Darin Lampson <darinl@ecollege.com>",
+		"Parvathi Saraswathyammal <Parvathis@ecollege.com>",
+		"Tom Barton <tomba@ecollege.com>",
+    "Anthony Hildoer <anthonyh@ecollege.com>"
+	],
+	"dependencies": {
+		"express": "3.1.0",
+		"hbs": "0.0.7",
+		"xml2js": "0.1.14",
+		"date": "1.0.1",
+		"request": "2.12.0",
+		"semver": "1.0.9",
+		"underscore": "1.3.x",
+		"mongoose": "2.5.14",
+		"eclg-dojo": "git://gitorious.petdev.com/node-common/dojo-npm.git#v1.6.1",
+		"eclg-google-service-client": "http://reggie.prsn.us/package/eclg-google-service-client/0.4.6",
+		"eclg-node-middleware": "http://reggie.prsn.us/package/eclg-node-middleware/1.7.0",
+		"eclg-google-oauth": "git+ssh://git@github.com:PearsonEducation/google-oauth.git#v1.7.9",
+		"eclg-prospero": "git+ssh://git@github.com:PearsonEducation/prospero-node.git#v2.1.0",
+		"eclg-windmill": "http://reggie.prsn.us/package/eclg-windmill/0.2.3",
+		"eclg-keystore": "http://reggie.prsn.us/package/eclg-keystore/0.1.1",
+		"eclg-whittaker": "http://reggie.prsn.us/package/eclg-whittaker/0.7.0",
+		"async": "0.2.3",
+		"asc": "~0",
+		"node-fastpass": "git://github.com/goosetail/node-fastpass.git",
+		"winston": "0.6.1",
+		"nconf": "0.5.1",
+		"pkginfo": "0.2.3",
+		"spindrift-harbor": "http://reggie.prsn.us/package/spindrift-harbor/0.3.1",
+		"date-utils": "1.2.11",
+		"refreshments": "http://reggie.prsn.us/package/refreshments/0.0.2"
+	},
+	"devDependencies": {
+		"mocha": "1.8.1",
+		"nock": "0.12.2",
+		"should": "0.6.3",
+		"docco-husky": "latest"
+	},
+	"keywords": [
+		"berlin",
+		"toolbar",
+		"google"
+	],
+	"scripts": {
+		"test": "make test",
+		"start": "node server.js"
+	},
+	"engines": {
+		"node": "0.6.21"
+	},
+	"docco_husky": {
+		"output_dir": "docs/out",
+		"content_dir": "docs/src",
+		"project_name": "Toolbar"
+	},
+	"optionalDependencies": {}
+}

@@ -1,0 +1,160 @@
+{
+	"PORT": 8080,
+	"NUM_WORKERS": 1,
+	"USE_PORT_AUTHORITY": false,
+	"PORT_AUTHORITY_HOST": "localhost",
+	"PORT_AUTHORITY_PORT": 5001,
+
+	"STATSD_HOST": "10.252.2.167",
+	"STATSD_PORT": 8125,
+
+	"SECURE": true,
+
+	"GOOGLE_OAUTH1_CLIENT_KEY": "1050185146238.apps.googleusercontent.com",
+	"GOOGLE_OAUTH1_CLIENT_SECRET": "8TZ2siOogcaYl3UnQJHLMRgI",
+	"GOOGLE_OAUTH2_CLIENT_KEY": "374574440745.apps.googleusercontent.com",
+	"GOOGLE_OAUTH2_CLIENT_SECRET": "eErfMyNNa_8oKDu_XLrMCJd3",
+	"GOOGLE_ANALYTICS_TRACKER": "UA-26284170-2",
+
+	"mongodbConnectionUrl": "mongodb://usw2a-pri-sl-mongodb-s1-01.asskickery.us/toolbar,mongodb://usw2a-pri-sl-mongodb-s1-02.asskickery.us/toolbar,mongodb://usw2b-pri-sl-mongodb-s1-01.asskickery.us/toolbar,mongodb://usw2b-pri-sl-mongodb-s1-02.asskickery.us/toolbar",
+
+	"WHITTAKER_ROOT_URL": "http://svc.admin.berlin.ecollegeqa.net",
+	"WHITTAKER_CONSUMER_ROOT_URL": "http://svc.googleauth.berlin.ecollegeqa.net/google/sso",
+
+	"WINDMILL_ROOT_URL": "http://svc.idm.berlin.ecollegeqa.net",
+	"GOOGLE_SUPER_ADMIN": "google_admin@ecollege.com",
+
+	"WSOD_M_ROOT_URL": "http://m-api.qaprod.ecollege.com",
+	"WSOD_PH_ROOT_URL": "http://ph-api.qaprod.ecollege.com",
+	"WSOD_CLIENT_ID": "da05cb28-a0e7-4ba0-8fa8-1ccbd3fd58b0",
+
+	"AFFINITY_PERSONA_ROOT_URL": "http://persona-pqa.asskickery.us",
+	"AFFINITY_PRESENCE_ROOT_URL": "http://presence-pqa.asskickery.us",
+	"XMPP_ROOT_URL": "http://xmpp.ecollegeqa.net:7070",
+	"XMPP_DOMAIN": "xmpp-pqa",
+
+	"ROOT_URL": "https://toolbar.qaprod.ecollege.com",
+	"PH_ROOT_URL": "https://dashboard.berlin.qaprod.ecollege.com",
+	"ADMIN_ROOT_URL": "https://admin.berlin.qaprod.ecollege.com",
+	"HELP_SERVICE": {
+		"DEFAULT_ROOT_URL": "http://openclass.custhelp.com",
+		"SERVICE_URL": "http://svc.admin.berlin.ecollegeqa.net/rightnowhelp"
+	},
+	"STATIC_ROOT_URL": "https://static.qaprod.ecollege.com",
+	"READYPOINT_HELP_URL": "http://help.ecollege.com/readypointhelp/en-us/default.htm",
+	"SHARE_ROOT_URL": "https://socialblogs.qaprod.ecollege.com/Transfer.html",
+	"SHARE_FEATURE_FILTER_ON": true,
+
+	"LOGGING_DIRECTORY": "/var/log/toolbar",
+
+	"METRICS_COLLECTOR_PORT": 8081,
+	"METRICS_PORT": 8082,
+
+	"GCO_SCOPE": "https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/calendar+https://docs.google.com/feeds+https://www.googleapis.com/auth/docs+https://mail.google.com/mail/feed/atom",
+	"GCO_STATE": "https://toolbar.qaprod.ecollege.com",
+	"GCO_REDIRECT_URI": "https://toolbar.qaprod.ecollege.com/google-authorize-success",
+	"GCO_RESPONSE_TYPE": "code",
+	"GCO_ACCESS_TYPE": "offline",
+	"CHAMBER_ROOT_URL": "https://chamber.qaprod.ecollege.com",
+	"GOOGLE_ROOT_REFRESH_URL": "https://accounts.google.com/o/oauth2/token",
+
+	"PROSPERO_ENABLED": true,
+
+	"COURSE_FILTER_BUFFER": 1,
+	"REFRESH_INTERVAL": 600000,
+
+	"ALIAS_ROOT_URL": "http://10.252.2.69:8080",
+	"ROOT_URL_PERSONA": "http://persona-pqa.asskickery.us",
+
+	"KEYSTORE": {
+		"ROOT_URL": "http://datasecure.ecollegeqa.net:3000",
+		"AES_KEY_MONIKER": "aExampleKeyAES256"
+	},
+
+	"WINDMILL": {
+		"ROOT_URL": "http://svc.idm.berlin.ecollegeqa.net",
+		"KEY": "EAAQDGhtr3wAZorvll3AHBoNkPzYRejx3HeJU5SOhncSo90",
+		"KEY_MONIKER": "assertion",
+		"TOKEN_EXPIRATION_OFFSET": "300000",
+		"TOKEN_RETRY_INTERVAL": "2000"
+	},
+
+	"prosperoConfig": {
+		"rootUrl": "http://prospero.qaprod.ecollege.com",
+		"port": "80",
+		"principal": "GOOGLEINT",
+		"sharedKey": "bA25cHUtacEsPar6"
+	},
+
+	"GS_OAUTH1_CLIENT_KEY": "8p9ikt7aun8k",
+	"GS_OAUTH1_CLIENT_SECRET": "z5zxzv76pamvr1pners1j89jqts5k0yh",
+
+	"socialConfig": {
+		"dashboard_url": "http://manhattanui-pqa.prsn.us/?token=${token}&refresh_token=${refresh_token}",
+		"admin_url": "https://admin.berlin.qaprod.ecollege.com/institution-admin.html?token=${token}&refresh_token=${refresh_token}",
+		"profile_url": "http://manhattanui-pqa.prsn.us/profile/${affinityId}?token=${token}&refresh_token=${refresh_token}",
+		"settings_url": "http://manhattanui-pqa.prsn.us//profileEdit/${affinityId}?token=${token}&refresh_token=${refresh_token}",
+		"help_url": "http://openclass.custhelp.com/app/answers/list/p/3354,3769/exp/0/noIntercept/1/session/L3RpbWUvMTM1MDA2OTQ5Ni9zaWQvdm42X0p5OGw%3D",
+		"exchange_url": "https://exchange.qaprod.ecollege.com/api/toolbar/dojo/exchangelink.js",
+		"get_satisfaction_url": "https://getsatisfaction.com/openclass/products/openclass_coming_soon",
+
+		"notifications_root_url": "https://grandcentralapi-pqa.asskickery.us",
+		"notifications_url": "/notifications/unread/user/${affinity_id}?token=${token}",
+		"notifications_read_url": "/notifications/read/user/${affinity_id}?token=${token}",
+		"notifications_all_url": "/notifications/all/user/${affinity_id}?token=${token}",
+		"notifications_polling_interval": 20,
+		"notifications_method": "polling"
+	},
+
+	"openClassConfig": {
+		"dashboard_url": "https://dashboard.berlin.qaprod.ecollege.com/transfer.html?token=${token}&refresh_token=${refresh_token}",
+		"admin_url": "https://admin.berlin.qaprod.ecollege.com/institution-admin.html?token=${token}&refresh_token=${refresh_token}",
+		"profile_url": "https://dashboard.berlin.qaprod.ecollege.com/transfer.html?action=editProfile&token=${token}",
+		"share_url": "https://socialblogs.qaprod.ecollege.com/Transfer.html?token=${token}&refresh_token=${refresh_token}",
+		"help_url": "https://openclass.custhelp.com/",
+		"exchange_url": "https://exchange.qaprod.ecollege.com/api/toolbar/dojo/exchangelink.js"
+	},
+
+	"LOGGER": {
+		"levels": [
+			{
+				"name": "web_access",
+				"color": "green"
+			},
+			{
+				"name": "debug3",
+				"color": "white"
+			},
+			{
+				"name": "debug2",
+				"color": "white"
+			},
+			{
+				"name": "debug1",
+				"color": "white"
+			},
+			{
+				"name": "info",
+				"color": "blue"
+			},
+			{
+				"name": "warn",
+				"color": "yellow"
+			},
+			{
+				"name": "error",
+				"color": "red"
+			}
+		],
+		"transports": [
+			{
+				"type": "CONSOLE",
+				"options": {
+					"level": "debug2",
+					"timestamp": true,
+					"colorize": true
+				}
+			}
+		]
+	}
+}

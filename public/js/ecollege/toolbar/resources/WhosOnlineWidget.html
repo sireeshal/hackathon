@@ -1,0 +1,45 @@
+<div class="ecollege_google_widget" title="Who's Online">
+	<div dojoType="dijit.form.DropDownButton" dojoAttachPoint="button">
+		<div dojoType="dijit.TooltipDialog" dojoAttachPoint="googleDialog" baseClass="ecollege_google_widget_dialog" class="ecollege_google_whos_online_dialog">
+			<h3 class="ecollege_google_widget_header_whos_online">Who's Online</h3>
+			
+			<div class="ecollege_google_widget_content">
+			
+				{{#loading}}
+				<span class="ajax_loading_image">Loading...</span>
+				{{/loading}}
+				{{^loading}}
+				
+				{{#error}}
+				<span class="ajax_status_message">We are unable to list online users at the moment. Please try again in a few minutes.</span>
+				{{/error}}
+				{{^error}}
+				
+				{{^data}}
+				<span class="ajax_status_message">There are no online users.</span>
+				{{/data}}
+				
+				<ul>
+				{{#data}}
+				<li> 
+					<a class="whos_online_avatar_wrapper" href="javascript:void(0);" title="{{longDisplayName}}" dojoAttachEvent="onclick: _onShowPersonProfile" data-userId="{{id}}" data-personaId="{{personaId}}"><img src="{{avatarUrl}}" /></a>
+					<div class="whos_online_line_item"> 
+						<h4><a href="javascript:void(0);" title="{{longDisplayName}}" dojoAttachEvent="onclick: _onShowPersonProfile" data-userId="{{id}}" data-personaId="{{personaId}}">{{longDisplayName}}</a></h4> 
+						<a href="javascript:void(0);" dojoAttachEvent="onclick: _onBeginChat" data-personaId="{{personaId}}" title="Chat with {{longDisplayName}}" class="whos_online_chat_icon"><span class="accessible_label">Chat</span></a>
+						{{#showSkype}}
+						<a href="{{skypeUrl}}" title="Skype with {{longDisplayName}}" class="whos_online_skype_icon"><span class="accessible_label">Skype</span></a>
+						{{/showSkype}}
+					</div>
+					<div class="clear_both"></div>
+				</li>
+				{{/data}}
+				</ul>
+				
+				{{/error}}
+				{{/loading}}
+				
+			</div>
+			
+		</div>
+	</div>
+</div>

@@ -1,0 +1,180 @@
+{
+	"PORT": 8080,
+	"NUM_WORKERS": 1,
+	"USE_PORT_AUTHORITY": false,
+	"PORT_AUTHORITY_HOST": "localhost",
+	"PORT_AUTHORITY_PORT": 5001,
+
+	"STATSD_HOST": "localhost",
+	"STATSD_PORT": 8085,
+
+	"SECURE": true,
+
+	"GOOGLE_OAUTH1_CLIENT_KEY": "379586774833.apps.googleusercontent.com",
+	"GOOGLE_OAUTH1_CLIENT_SECRET": "ScDMP2kYPI8YTWHhIkR38keL",
+	"GOOGLE_OAUTH2_CLIENT_KEY": "23977372808.apps.googleusercontent.com",
+	"GOOGLE_OAUTH2_CLIENT_SECRET": "O19QHpcDTyjkMb9Ny34Uhram",
+	"GOOGLE_ANALYTICS_TRACKER": "UA-26284170-1",
+
+	"WHITTAKER_ROOT_URL": "https://admin.pearsonopenclass.com/service",
+	"WHITTAKER_CONSUMER_ROOT_URL": "https://login.pearsonopenclass.com/google-service/google/sso",
+
+	"WINDMILL_ROOT_URL": "https://login.pearsonopenclass.com/service",
+	"GOOGLE_SUPER_ADMIN": "google_admin@ecollege.com",
+
+	"WSOD_M_ROOT_URL": "https://m-api.ecollege.com",
+	"WSOD_PH_ROOT_URL": "https://ph-api.ecollege.com",
+	"WSOD_CLIENT_ID": "da05cb28-a0e7-4ba0-8fa8-1ccbd3fd58b0",
+
+	"AFFINITY_PERSONA_ROOT_URL": "https://persona.ecollege.com",
+	"AFFINITY_PRESENCE_ROOT_URL": "https://presence.ecollege.com",
+	"XMPP_ROOT_URL": "http://xmpp.ecollege.net:7070",
+	"XMPP_DOMAIN": "xmpp-prod",
+
+	"PH_ROOT_URL": "https://dashboard.pearsonopenclass.com",
+	"ADMIN_ROOT_URL": "https://admin.pearsonopenclass.com",
+
+	"HELP_SERVICE": {
+		"DEFAULT_ROOT_URL": "http://openclass.custhelp.com",
+		"SERVICE_URL": "http://10.52.93.87:3001"
+	},
+
+	"READYPOINT_HELP_URL": "http://help.ecollege.com/readypointhelp/en-us/default.htm",
+	"STATIC_ROOT_URL": "https://static.ecollege.com",
+	"ROOT_URL": "https://toolbar.pearsonopenclass.com",
+
+	"SHARE_ROOT_URL": "https://socialblogs.ecollege.com/Transfer.html",
+	"SHARE_FEATURE_FILTER_ON": true,
+	"SHARE_FEATURE_SLUGS": ["wstratau", "pearsonplayground", "uxuniversity", "testeduinfo", "columbiace", "openclassu", "cpcc", "abilenechristianu", "kctcs", "wvu", "ukyedu", "wisconsintestcampus", "monashuniversity", "monashsandbox", "riceutestcampus", "rice", "asudev", "openclassexperience", "monash", "rcgpilot", "owlplayground", "setonhill", "alms", "openclassmobile", "molloyuniversity"],
+
+	"WSOD_USER": "ciu\\4e03c4775c2827fa56bb5327",
+	"WSOD_PASSWORD": "c823032c-26a2-4c30-a02d-af5e3942d977",
+	"WHIT_USER": "2011-06-24T160652871-0600testTa@integration.com",
+	"WHIT_PASSWORD": "12345",
+
+	"LOGGING_DIRECTORY": "logs",
+
+	"METRICS_COLLECTOR_PORT": 9090,
+	"METRICS_PORT": 9091,
+
+	"WORKERS": 1,
+	"mongodbConnectionUrl": "mongodb://dev-pri-10-100-mongodb-01.asskickery.us/toolbar",
+
+	"GCO_SCOPE": "https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/calendar+https://docs.google.com/feeds+https://www.googleapis.com/auth/docs+https://mail.google.com/mail/feed/atom",
+	"GCO_STATE": "https://socialtoolbarbeta.pearsonopenclass.com",
+
+	"GCO_REDIRECT_URI": "https://socialtoolbarbeta.pearsonopenclass.com/google-authorize-success",
+	"GCO_RESPONSE_TYPE": "code",
+	"GCO_ACCESS_TYPE": "offline",
+	"CHAMBER_ROOT_URL": "https://chamber.ecollege.com",
+	"GOOGLE_ROOT_REFRESH_URL": "https://accounts.google.com/o/oauth2/token",
+
+	"COURSE_FILTER_BUFFER": 1,
+	"REFRESH_INTERVAL": 600000,
+
+	"ALIAS_ROOT_URL": "https://alias.pearsonopenclass.com",
+	"ROOT_URL_PERSONA": "https://persona.ecollege.com",
+
+	"WINDMILL": {
+		"ROOT_URL": "http://159.182.165.196/service",
+		"KEY": "EAAQ-fYEsEeWlUGRv-ilhLQV9U-8Ic2PR5aAukfmqPW4tbQ",
+		"KEY_MONIKER": "assertion",
+		"TOKEN_EXPIRATION_OFFSET": "300000",
+		"TOKEN_RETRY_INTERVAL": "2000"
+	},
+
+	"KEYSTORE": {
+		"ROOT_URL": "http://10.200.164.20:3000",
+		"AES_KEY_MONIKER": "appWhittakerAES256Key"
+	},
+
+	"PROSPERO_ENABLED": false,
+
+	"prosperoConfig": {
+		"rootUrl": "http://prospero.ecollege.com",
+		"port": "80",
+		"principal": "GOOGLEINT",
+		"sharedKey": "WR4w2sEstuwASt2f"
+	},
+
+	"socialConfig": {
+		"dashboard_url": "https://socialbeta.pearsonopenclass.com/?token=${token}&refresh_token=${refresh_token}",
+		"admin_url": "https://admin.pearsonopenclass.com/institution-admin.html?token=${token}&refresh_token=${refresh_token}",
+		"profile_url": "https://socialbeta.pearsonopenclass.com/profile/${affinityId}?token=${token}&refresh_token=${refresh_token}",
+		"settings_url": "https://socialbeta.pearsonopenclass.com/profileEdit/${affinityId}?token=${token}&refresh_token=${refresh_token}",
+		"help_url": "http://openclass.custhelp.com/app/answers/list/p/3354,3769/exp/0/noIntercept/1/session/L3RpbWUvMTM1MDA2OTQ5Ni9zaWQvdm42X0p5OGw%3D",
+		"exchange_url": "https://exchange-develop.prsn.us/api/toolbar/dojo/exchangelink.js",
+		"get_satisfaction_url": "https://getsatisfaction.com/openclass/products/openclass_coming_soon",
+
+		"notifications_root_url": "https://socialnotificationsbeta.pearsonopenclass.com",
+		"notifications_url": "/notifications/unread/user/${affinity_id}?token=${token}",
+		"notifications_read_url": "/notifications/read/user/${affinity_id}?token=${token}",
+		"notifications_all_url": "/notifications/all/user/${affinity_id}?token=${token}",
+		"notifications_polling_interval": 10,
+		"notifications_method": "polling"
+	},
+
+	"openClassConfig": {
+		"dashboard_url": "https://dashboard.pearsonopenclass.com/transfer.html?token=${token}",
+		"admin_url": "https://admin.pearsonopenclass.com/institution-admin.html?token=${token}&refresh_token=${refresh_token}",
+		"profile_url": "https://dashboard.pearsonopenclass.com/transfer.html?action=editProfile&token=${token}",
+		"share_url": "https://socialblogs.ecollege.com/Transfer.html?token=${token}&refresh_token=${refresh_token}",
+		"help_url": "http://openclass.custhelp.com",
+		"exchange_url": "https://exchange-develop.prsn.us/api/toolbar/dojo/exchangelink.js"
+	},
+
+	"GS_OAUTH1_CLIENT_KEY": "8p9ikt7aun8k",
+	"GS_OAUTH1_CLIENT_SECRET": "z5zxzv76pamvr1pners1j89jqts5k0yh",
+
+	"LOGGER": {
+		"levels": [
+			{
+				"name": "web_access",
+				"color": "green"
+			},
+			{
+				"name": "debug3",
+				"color": "white"
+			},
+			{
+				"name": "debug2",
+				"color": "white"
+			},
+			{
+				"name": "debug1",
+				"color": "white"
+			},
+			{
+				"name": "info",
+				"color": "blue"
+			},
+			{
+				"name": "warn",
+				"color": "yellow"
+			},
+			{
+				"name": "error",
+				"color": "red"
+			}
+		],
+		"transports": [
+			{
+				"type": "FILE",
+				"options": {
+					"level": "web_access",
+					"timestamp": true,
+					"filename": "/tmp/ec_toolbar.log"
+				}
+			},
+			{
+				"type": "CONSOLE",
+				"options": {
+					"level": "debug2",
+					"timestamp": true,
+					"colorize": true
+				}
+			}
+		]
+	}
+}
+

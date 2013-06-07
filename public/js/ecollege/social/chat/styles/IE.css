@@ -1,0 +1,48 @@
+/*
+ * IE fixes
+ */
+
+.eCollegeChat {
+	/*background-color: #449ABA;*/
+	border-style: solid;
+	border-color: #000;
+	border-width: 13px 5px;
+}
+
+.eCollegeChat .chatWindow {
+	/*background-color: #FFF;*/
+
+}
+
+.eCollegeChat .dialogContainer .timestamp {
+	margin-right: 15px;
+}
+
+.eCollegeChat .entry {
+	/*background-color: #FFF;*/
+	border-color: transparent;
+	border-style: solid;
+	position: relative;
+}
+
+.eCollegeChat .IEBG {
+	height: 78%;
+	background: #FFF;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	box-shadow: inset 0 0 4px #666;
+	-moz-box-shadow: inset 0 0 4px #666;
+	-webkit-box-shadow: inset 0 0 4px #666;
+	border: 1px solid #87959E;
+}
+
+.eCollegeUserList {
+	border: 2px solid #CCC;
+	padding: 8px;
+}
+
+.eCollegeUserList .closeX {
+	top: 8px;
+	right: 8px;
+}

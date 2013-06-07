@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="https://exchange.pearsonopenclass.com/assets/css/exchange.css" media="screen" charset="utf-8"/>
+	
+	<script>dojoConfig = {parseOnLoad: true}</script>
+	<script src='http://static-int.static-ecollege.com/dojo/1.6.1/dojo/dojo.js'></script>
+
+	<script>
+	function searchExchange()
+{
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange=function()
+            {
+               if (xmlhttp.readyState==4)
+               {
+                alert(xmlhttp.status);
+               }
+  			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    			{
+                    alert("made it");
+    			}
+  		}
+              	xmlhttp.open("GET","/exchange?limit=9&offset=0&query=Biology",true);
+                xmlhttp.setRequestHeader('X-Authorization','1.0|idm|idm|affinity=berlin_4fd0cf4f5ee5f77a12b3425b&berlin=4fd0cf4f50ad230ad5b9ab70&campus=berlin:4fd0cf4f5ee5f77a12b3425b|2013-06-06T16:32:50+00:00|2013-06-06T19:32:50+00:00|75272ad2cb7e4a5b0b30c0764762d33b');
+		xmlhttp.send();
+}
+</script>
+</head>
+<body>
+    <div id="main" class="main-wrapper">
+	<div>
+<div class="column-main" role="main">
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="search-bar">
+<label for="search-nav-bar" class="screen-readers-only">Search</label>
+<input type="search" name="searchText" id="search-nav-bar" class="search-query" placeholder="Search for Books, Articles, Videos, Audio, and more…" value>
+<button onclick="searchExchange()" class="submit">Submit</button>
+<div class="search-filter-list" style="display: none"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

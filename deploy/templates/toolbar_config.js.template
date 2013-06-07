@@ -1,0 +1,132 @@
+module.exports = {
+	  SECURE:	${SECURE},
+
+    GOOGLE_OAUTH1_CLIENT_KEY:     "${GOOGLE_OAUTH1_CLIENT_KEY}",
+    GOOGLE_OAUTH1_CLIENT_SECRET:  "${GOOGLE_OAUTH1_CLIENT_SECRET}",
+    GOOGLE_OAUTH2_CLIENT_KEY:     "${GOOGLE_OAUTH2_CLIENT_KEY}",
+    GOOGLE_OAUTH2_CLIENT_SECRET:  "${GOOGLE_OAUTH2_CLIENT_SECRET}",
+    GOOGLE_ANALYTICS_TRACKER:     "${GOOGLE_ANALYTICS_TRACKER_ID}",
+
+    mongodbConnectionUrl:         "${mongodbConnectionUrl}",
+
+    WHITTAKER_ROOT_URL:           "${WHITTAKER_ROOT_URL}",
+    WHITTAKER_CONSUMER_ROOT_URL:  "${WHITTAKER_CONSUMER_ROOT_URL}",
+
+    WINDMILL_ROOT_URL:            "${WINDMILL_ROOT_URL}",
+
+    WSOD_M_ROOT_URL:              "${WSOD_M_ROOT_URL}",
+    WSOD_PH_ROOT_URL:             "${WSOD_PH_ROOT_URL}",
+    WSOD_CLIENT_ID:               "${WSOD_CLIENT_ID}",
+
+    AFFINITY_PERSONA_ROOT_URL:    "${AFFINITY_PERSONA_ROOT_URL}",
+    AFFINITY_PRESENCE_ROOT_URL:   "${AFFINITY_PRESENCE_ROOT_URL}",
+    XMPP_ROOT_URL:                "${XMPP_ROOT_URL}",
+    XMPP_DOMAIN:                  "${XMPP_DOMAIN}",
+
+    ROOT_URL:					            "${ROOT_URL}",
+    PH_ROOT_URL:                  "${PH_ROOT_URL}",
+    ADMIN_ROOT_URL:               "${ADMIN_ROOT_URL}",
+    HELP_ROOT_URL:                "${HELP_ROOT_URL}",
+    STATIC_ROOT_URL:              "${STATIC_ROOT_URL}",
+    READYPOINT_HELP_URL:          "${READYPOINT_HELP_URL}",
+    SHARE_ROOT_URL:               "${SHARE_ROOT_URL}",
+    SHARE_FEATURE_FILTER_ON:      ("${SHARE_FEATURE_FILTER_ON}" == "true") ? true : false,
+
+    LOGGING_DIRECTORY:            "${LOGGING_DIRECTORY}",
+
+    METRICS_COLLECTOR_PORT:       ${METRICS_COLLECTOR_PORT},
+    METRICS_PORT:                 ${METRICS_PORT},
+
+    WORKERS:                      ${WORKERS},
+
+    GCO_SCOPE:                    "${GCO_SCOPE}",
+    GCO_STATE:                    "${GCO_STATE}",
+    GCO_REDIRECT_URI:             "${GCO_REDIRECT_URI}",
+    GCO_RESPONSE_TYPE:            "${GCO_RESPONSE_TYPE}",
+    GCO_ACCESS_TYPE:              "${GCO_ACCESS_TYPE}",
+    CHAMBER_ROOT_URL:             "${CHAMBER_ROOT_URL}",
+    GOOGLE_ROOT_REFRESH_URL:      "${GOOGLE_ROOT_REFRESH_URL}",
+
+    PROSPERO_ENABLED: ${PROSPERO_ENABLED},
+
+    prosperoConfig: {
+        rootUrl:       "${PROSPERO_HOST}",
+        port:           "${PROSPERO_PORT}",
+        principal:      "${PROSPERO_PRINCIPAL}",
+        sharedKey:      "${PROSPERO_SHARED_KEY}"
+   },
+
+   GS_OAUTH1_CLIENT_KEY:      "${GS_OAUTH1_CLIENT_KEY}",
+   GS_OAUTH1_CLIENT_SECRET:   "${GS_OAUTH1_CLIENT_SECRET}",
+
+   socialConfig: {
+       dashboardUrl: "${SOCIAL_DASHBOARD_URL}",
+       adminUrl: "${ADMIN_URL}",
+       profileUrl: "${SOCIAL_PROFILE_URL}",
+       settingsUrl: "${SOCIAL_SETTING_URL}",
+       helpUrl: "${SOCIAL_HELP_URL}"
+   },
+
+   openClassConfig: {
+       dashboardUrl: "${OPENCLASS_DASHBOARD_URL}",
+       adminUrl: "${ADMIN_URL}",
+       profileUrl: "${OPENCLASS_PROFILE_URL}",
+       shareUrl: "${OPENCLASS_SHARE_URL}",
+       helpUrl: "${OPENCLASS_HELP_URL}"
+   },
+
+   LOGGER: {
+	 levels: [
+     {
+       name: 'web_access',
+       color: 'green'
+     },
+		 {
+			 name: 'debug3',
+			 color: 'white'
+		 },
+		 {
+			 name: 'debug2',
+			 color: 'white'
+		 },
+		 {
+			 name: 'debug1',
+			 color: 'white'
+		 },
+		 {
+			 name: 'info',
+			 color: 'blue'
+		 },
+		 {
+			 name: 'warn',
+			 color: 'yellow'
+		 },
+		 {
+			 name: 'error',
+			 color: 'red'
+		 }
+	 ],
+	 transports: [
+		 {
+			 type: "FILE",
+			 options: {
+				 level: "${LOGGER_FILE_TRANSPORT_LEVEL}",
+				 timestamp: true,
+				 filename: "${LOGGER_FILE_TRANSPORT_FILE}"
+			 }
+		 },
+		 {
+			 type: "CONSOLE",
+			 options: {
+				 level: "${LOGGER_CONSOLE_TRANSPORT_LEVEL}",
+				 timestamp: true,
+				 colorize: true
+			 }
+		 }
+	 ]
+   }
+};
+
+if("${SHARE_FEATURE_SLUGS}" !== "") {
+	module.exports.SHARE_FEATURE_SLUGS = ${SHARE_FEATURE_SLUGS};
+}

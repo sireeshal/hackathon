@@ -1,0 +1,250 @@
+.eCollegeChat {
+	height: 100%;
+	padding: 10px;
+	background: #354291 url(../images/chatContainerBG2.png) repeat-x left top;
+	overflow: hidden;
+}
+
+.eCollegeChat .chatWindow {
+	height: 65%;
+	background: #FFF;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	box-shadow: inset 0 0 5px #666;
+	-moz-box-shadow: inset 0 0 5px #666;
+	-webkit-box-shadow: inset 0 0 5px #666;
+	padding: 15px;
+}
+
+.eCollegeChat .meta {
+	height: 40px;
+	width: 100%;
+	display: block;
+	clear: both;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.eCollegeChat .meta span.avatar {
+	height: 40px;
+	width: 40px;
+	overflow: hidden;
+	float: left;
+	padding: 0px 10px 0px 0px;
+}
+
+.eCollegeChat .meta .classmateName {
+	color:#006699;
+	font-weight: bold;
+	display: block;
+	height: 20px;
+	overflow: hidden;
+	font-size: 14px;
+}
+.eCollegeChat .meta .classmateStatus {
+	display: block;
+	overflow: hidden;
+	font-size: 12px;
+	font-style: italic;
+	color:#999999;
+	height: 20px;
+	width: 330px;
+	line-height: 20px;
+}
+
+.eCollegeChat .dialogContainer {
+	overflow: auto;
+	max-height: 75%;
+	margin-top: 0px;
+	display: block;
+	padding: 0 4px 4px 4px;
+	background: none;
+}
+
+.eCollegeChat .dialogContainer .dialog {
+	font-size: 80%;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+.eCollegeChat .dialogContainer .dialog span.classmateChat {
+	font-weight: bold;
+	color:#006699;
+	font-style: italic;
+}
+
+.eCollegeChat .dialogContainer .dialog span.myChat {
+	font-weight: bold;
+	color:#999;
+	font-style: italic;
+}
+
+.eCollegeChat .dialogContainer .dialog span.systemChat {
+	font-weight: bold;
+	color:#996600;
+	font-style: italic;
+}
+
+.eCollegeChat .dialogContainer .timestamp {
+	background-image: url(../images/timestamp.png);
+	background-position: bottom right;
+	background-repeat: no-repeat;
+	text-align: right;
+	color:#ccc;
+	font-size: 11px;
+	font-style: italic;
+	margin-bottom: 10px;
+	margin-right: 5px;
+}
+
+.eCollegeChat .controls {
+	height: 21%;
+	bottom: 0;
+}
+
+.eCollegeChat .entry {
+	margin-top: 8px;
+	padding: 5px;
+	overflow: visible; /* Intentionally overriding Dijit, to show textarea better */
+	background: #FFF;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	box-shadow: inset 0 0 5px #666;
+	-moz-box-shadow: inset 0 0 5px #666;
+	-webkit-box-shadow: inset 0 0 5px #666;
+}
+
+.eCollegeChat .entry textarea {
+	width: 100%;
+	height: 94%;
+	border: none;
+	resize: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+.eCollegeChat .dijitBorderContainer,
+.eCollegeChat .dijitBorderContainer-dijitContentPane {
+	background-color: transparent;
+	border: none;
+}
+
+.eCollegeChat .sendContainer {
+	width: 70px;
+	height: 100%;
+	padding-right: 0px;
+	overflow: hidden;
+}
+
+.eCollegeChat .sendButton {
+	background: url(../images/sendButton.png) no-repeat;
+	width: 69px;
+	height: 60px;
+	text-align: center;
+	color:#FFFFFF;
+	font-weight: bold;
+	border: none;
+	cursor: pointer;
+}
+
+.eCollegeChat .IEBG {
+	display: none;
+}
+
+/*
+ * Special: For the icon status
+ * References the container, as this piece is in the tab
+ * but listed here, because it's relevant to this chat
+ */
+.chatContainer .dijitIcon {
+	width: 16px;
+	height: 16px;
+}
+
+.chatContainer .statusOnline {
+	background-color: #3F3;
+}
+.chatContainer .statusOffline {
+	background-color: #CCC;
+}
+.chatContainer .statusPending {
+	background-color: #FCB42D;
+}
+
+.chatBtnIcon {
+	background: url(../images/chatIcon.png) no-repeat;
+}
+
+.chatBtnIconNew {
+	background: url(../images/chatIconNew.png) no-repeat;
+}
+
+/* START claro theme classes to override basecollege */
+.claro .dijitTabContainer {
+    -moz-border-radius: 0px;
+    -moz-box-shadow: 0px 0px 0px 0px;
+	-webkit-border-radius: 0px 0px;
+    -webkit-box-shadow: #fff 0px 0px 0px;
+	box-shadow: #fff 0px 0px 0px;
+	border-radius: 0px;
+    background-color: transparent;
+    margin: 0px;
+}
+
+.claro .dijitLayoutContainer {
+    display: block;
+    overflow: hidden;
+    position: relative;
+}
+
+.claro .dijitContainer {
+    overflow: hidden;
+}
+
+.claro .dijitTabListContainer-top {
+    -moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	border-radius: 0px;
+    background-color: transparent;
+}
+
+.claro .dijitTabListWrapper {
+    border-bottom: 0px;
+}
+
+.claro .dijitTabListWrapper .dijitTabContainerTop-tabs {
+    border: 0px;
+}
+
+.claro .dijitTabListWrapper .dijitTab:hover, .claro .dijitTabListWrapper .dijitTabChecked {
+    -moz-border-radius: 0px;
+    -moz-box-shadow: 0px 0px 0px 0px;
+	-webkit-border-radius: 0px 0px;
+    -webkit-box-shadow: #fff 0px 0px 0px;
+	box-shadow: #fff 0px 0px 0px;
+	border-radius: 0px 0px 0px 0px;
+    background: none;
+}
+
+.claro .dijitTabListWrapper .dijitTab {
+    -moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	border-radius: 0px;
+    background: none;
+    color: inherit;
+    font-size: 70%;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+    text-decoration: none;
+    text-shadow: none;
+}
+
+.claro .dijitTabListWrapper .dijitTab * {
+    vertical-align: middle;
+}
+/* END claro theme classes to override basecollege */

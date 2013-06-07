@@ -1,0 +1,60 @@
+module.exports = {
+    GOOGLE_OAUTH1_CLIENT_KEY:     \\,
+    GOOGLE_OAUTH1_CLIENT_SECRET:  \\,
+    GOOGLE_OAUTH2_CLIENT_KEY:     \\,
+    GOOGLE_OAUTH2_CLIENT_SECRET:  \\,
+    GOOGLE_ANALYTICS_TRACKER:     \\,
+
+    mongodbConnectionUrl:         \\,
+
+    WHITTAKER_ROOT_URL:           \\,
+    WHITTAKER_CONSUMER_ROOT_URL:  \\,
+
+    WINDMILL_ROOT_URL:            \\,
+
+    WSOD_M_ROOT_URL:              \\,
+    WSOD_PH_ROOT_URL:             \\,
+    WSOD_CLIENT_ID:               \\,
+
+    AFFINITY_PERSONA_ROOT_URL:    \\,
+    AFFINITY_PRESENCE_ROOT_URL:   \\,
+    XMPP_ROOT_URL:                \\,
+    XMPP_DOMAIN:                  \\,
+
+    PH_ROOT_URL:                  \\,
+    ADMIN_ROOT_URL:               \\,
+    HELP_ROOT_URL:                \\,
+    STATIC_ROOT_URL:              \\,
+
+    SHARE_ROOT_URL:               \\,
+    SHARE_FEATURE_FILTER_ON:      (\\ == \true\) ? true : false,
+
+    LOGGING_DIRECTORY:            \\,
+
+    METRICS_COLLECTOR_PORT:       ,
+    METRICS_PORT:                 ,
+
+    WORKERS:                      ,
+    
+    GCO_SCOPE:                    \\,
+    GCO_STATE:                    \\,
+    GCO_REDIRECT_URI:             \\,
+    GCO_RESPONSE_TYPE:            \\,
+    GCO_ACCESS_TYPE:              \\,
+    CHAMBER_ROOT_URL:             \\,
+    GOOGLE_ROOT_REFRESH_URL:      \\,
+
+    PROSPERO_ENABLED: ,
+
+    prosperoConfig: {
+        rootUrl:       \\,
+        port:           \\,
+        principal:      \\,
+        sharedKey:      \\
+   }
+
+};
+
+if(\\ !== \\) {
+	module.exports.SHARE_FEATURE_SLUGS = ;
+}

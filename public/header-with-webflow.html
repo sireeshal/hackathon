@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Google Consumer Web-Flow Tester</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="/style/basecollege.css" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dojo/resources/dojo.css" />
+	<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dijit/themes/claro/claro.css" />
+	<script>
+		dojoConfig = {
+			isDebug: false,
+			debugAtAllCosts: false,
+			parseOnLoad: false,
+			useXDomain: true
+		};
+
+		function getURLParameter( name ) {
+		  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+		  var regexS = "[\\?&]"+name+"=([^&#]*)";
+		  var regex = new RegExp( regexS );
+		  var results = regex.exec( window.location.href );
+		  return (results == null ) ? "" : results[1];
+		}
+	</script>
+  
+	<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dojo/dojo.xd.js"></script>
+  
+	<style>
+  	label { width:100px; float:left; display: block; margin-top: 10px; }
+  	input { padding: 5px; margin-top: 10px; width: 200px; clear: right; float:left; display: block;}
+  	form  { padding-bottom: 30px; margin-bottom: 30px; clear: both;}
+    
+    .googleConsumer {}
+
+    .googleConsumer .hidden{
+      display: none;
+    }
+
+    .googleConsumer .oauthResult {
+      width:580px;
+      height: auto;
+      border: 1px solid;
+      -moz-border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -o-border-radius: 10px;
+      display: block;
+      margin:auto;
+      margin-top: 10px;
+    }
+        
+    .googleConsumer .dijitButtonNode {
+      background: none repeat scroll 0 0 #4274B2;
+      color: #CECECE;
+      font-size: 12px;
+      font-weight: normal;
+      line-height: 30px;
+      width: 200px;
+      margin: 10px 0px 0px 25px;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -o-border-radius: 5px;            
+    }       
+     
+    .googleConsumer .addGoogleTokenInfo {
+      font-size:12px;
+      color: #848484;    
+      word-wrap: break-word;
+      width:560px;
+    }
+    
+    .googleConsumer .addGoogleCheck {
+      width: auto !important;
+      margin: 10px 5px 0 15px;      
+    }
+    
+    .googleConsumer .addGoogleCheckLabel {
+      font-size:14px; 
+      width: auto;
+      margin-top: 5px !important;
+    }
+    
+    .googleConsumer .addGoogleResult {
+      padding: 10px;
+    }
+
+  </style>
+</head>	
+<body class="basecollege" style="padding-top:50px;">
+	
+	<div id="login" style="padding:50px; width:400px; margin:auto; display:none" >
+		<form action="" method="POST">
+			<label for="email">Email</label>
+			<input type="text" name="email" value=""/>
+			<label for="password">Password</label>
+			<input type="text" name="password" value="12345"/>
+			<input id="submit_button" type="submit" style="margin: 10px 0 0 100px;"/>
+		</form>
+	</div>
+
+	<script>
+		var whit_access_token = getURLParameter("token");
+		var slug = getURLParameter("slug");
+		if(whit_access_token) {
+            dojo.create("script", { 
+                src: "/js/include-toolbar.js",
+                "data-whit-access-token": whit_access_token
+            }, dojo.body());
+		}
+		else if (slug) {
+            dojo.create("script", { 
+                src: "/js/include-toolbar.js",
+                "data-slug": slug
+            }, dojo.body());			
+		}
+		else {
+			dojo.query("#login").style({ display:"inherit" }); 
+		}
+
+		dojo.require("dojo.io.script");
+		dojo.connect(dojo.byId("submit_button"), "onclick", function(evt) {
+			dojo.stopEvent(evt);
+			dojo.io.script.get({
+	            url: "/auth",
+	            callbackParamName: "callback",
+	            content: {
+	                email: dojo.query("input:email")[0].value,
+	                password:dojo.query("input[name$=password]")[0].value
+	            },
+	            load: function(data) {
+	            	var auth_token = data.data && data.data.data && data.data.data.authToken;
+	            	console.log(data, auth_token);
+	            	if(auth_token) {
+	            		window.location = window.location.href + "?token=" + encodeURIComponent(auth_token);
+	            	}
+	            }
+	       });
+		});
+
+	</script>
+
+
+    <script>
+    //  Google Consumer Web Flow
+    if(whit_access_token) {
+        dojo.require( 'dijit.form.Button' );
+        
+        var force = true;
+        
+        dojo.addOnLoad( function() {
+            dojo.require( 'ecollege.toolbar.Toolbar' );
+            
+            var toolbarApi = window.ecollege.toolbar.Toolbar.api;
+            var button = new dijit.form.Button( {
+                label: 'Add Google Consumer Account...',
+                baseClass: "googleConsumer",
+                onClick: function() {
+                    toolbarApi.startGoogleWebFlow( force );
+                    
+                    var msgCodeObj = dojo.subscribe( 'google-authorization-code', function( message ) {
+                        
+                        console.log( 'google-authorization-code message ', message );
+                        
+                        if( message.status === 'success'){
+                            dojo.byId( 'code' ).innerHTML = '<p>Code: ' + message.data + '</p>';
+                        }
+                        else {
+                            dojo.byId( 'code' ).innerHTML = 'An error occurred: ' + message.data || '';
+                        }
+                        dojo.unsubscribe( msgCodeObj );
+                    } );
+                    
+                    var msgTokenObj = dojo.subscribe( 'google-authorization', function( message ) {
+                    
+                        console.log( 'google-authorization message ', message );
+                        
+                        if( message.status === 'success') {
+                            var tokenObj = message.data;
+                            var userObj = toolbarApi.getUser();
+                            setTokenContent( tokenObj, userObj );
+                        }
+                        if( message.status === 'popup-blocked' ) {
+                            console.log( 'Unable to load popup' );
+                        }
+                        if( message.status === 'error' ) {
+                            dojo.byId( 'code' ).innerHTML = 'An error occurred: ' + message.data || '';
+                            console.log( 'web-flow completed with error' );
+                        }
+                        dojo.unsubscribe( msgTokenObj );
+                    } );
+                }
+            }, 'addGoogleService' );
+        
+            dojo.byId( 'checkBox' ).checked = force;
+            dojo.connect( dojo.byId( 'checkBox' ), 'onclick', function() {
+                force = dojo.byId( 'checkBox' ).checked;
+            } );
+            dojo.connect( dojo.byId( 'get_user' ), 'onclick', function() {
+                var userObj = toolbarApi.getUser();
+                
+                dojo.byId( 'is_google' ).innerHTML = userObj.name + " is " + ( userObj.is_google ?  'a' : 'NOT a') + ' Google user, ';
+                dojo.byId( 'google_type' ).innerHTML = "Google user type = " + userObj.google_type;
+            } );
+            dojo.connect( dojo.byId( 'remove' ), 'onclick', function() {
+                toolbarApi.removeGoogleUser();
+                var msgRemoveUserObj = dojo.subscribe( 'google-remove', function( message ) {
+                    
+                    console.log( 'google-remove-user message ', message );
+                    if( message.status === 'success') {
+                        var tokenObj = message.data;
+                        dojo.byId( 'remove_status' ).innerHTML = 'Successful';
+                        var userObj = toolbarApi.getUser();
+                        clearTokenContent( userObj );
+                    }
+                    else {
+                      var errMessage = message.data && message.data.error || null ;
+                      
+                      var errText = 'An error occurred' 
+                      if( errMessage === 'not-found' )
+                        errText += ': user not found';
+                      else if( errMessage === 'Google email not provided' )
+                        errText += ': ' + errMessage;
+      
+                      dojo.byId( 'remove_status' ).innerHTML = errText;                       
+                            
+                    }
+                    dojo.unsubscribe( msgRemoveUserObj );
+                } );
+            } );
+            dojo.removeClass( dojo.byId( 'oauth2' ), 'hidden' );
+            dojo.addClass( dojo.byId( 'oauth2' ), 'oauthResult' );
+        } );
+        
+        function setTokenContent( tokenObj, userObj ) {    
+            dojo.byId( 'api_email' ).innerHTML = '<a href="#">Test email address</a>' || 'null';                    
+            dojo.byId( 'remove_user' ).innerHTML = '<div style="float:left;"><a id="remove" href="#">Remove tokens from chamber</a></div><div id="remove_status" style="margin-left:10px;color:red;float:left;"></div>';                    
+            dojo.byId( 'api_link' ).innerHTML = '<a href="https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=' + tokenObj.access_token + '" target="_blank">Test Token Info</a>' || 'null';                    
+            dojo.byId( 'account' ).innerHTML = '<a href="https://www.google.com/accounts/b/0/IssuedAuthSubTokens?hl=en"  target="_blank">Manage Access</a>';
+            dojo.byId( 'email' ).innerHTML = 'Email: </strong>' + tokenObj.email || 'null';
+            dojo.byId( 'access_token' ).innerHTML = 'Token: ' + tokenObj.access_token || 'null';
+            dojo.byId( 'refresh_token' ).innerHTML = 'Refresh token: ' + tokenObj.refresh_token || 'null';
+            dojo.byId( 'token_type' ).innerHTML = 'Type: ' + tokenObj.token_type || 'null';
+            dojo.byId( 'expires_in' ).innerHTML = 'Expires in: ' + tokenObj.expires_in + ' seconds'|| 'null';
+            dojo.byId( 'id_token' ).innerHTML = 'Token id: ' + tokenObj.id_token || 'null';
+            dojo.byId( 'is_google' ).innerHTML = userObj.name + " is " + ( userObj.is_google ?  'a' : 'NOT a') + ' Google user, ';
+            dojo.byId( 'google_type' ).innerHTML = "Google user type = " + userObj.google_type;
+        }
+        
+        function clearTokenContent( userObj ) {    
+            dojo.byId( 'code' ).innerHTML = '';                    
+            dojo.byId( 'api_email' ).innerHTML = '';                    
+            dojo.byId( 'remove_user' ).innerHTML = '';                    
+            dojo.byId( 'api_link' ).innerHTML = '';                   
+            dojo.byId( 'account' ).innerHTML = '';
+            dojo.byId( 'email' ).innerHTML = '';
+            dojo.byId( 'access_token' ).innerHTML = '';
+            dojo.byId( 'refresh_token' ).innerHTML = '';
+            dojo.byId( 'token_type' ).innerHTML = '';
+            dojo.byId( 'expires_in' ).innerHTML = '';
+            dojo.byId( 'id_token' ).innerHTML = '';
+            dojo.byId( 'is_google' ).innerHTML = userObj.name + " is " + ( userObj.is_google ?  'a' : 'NOT a') + ' Google user, ';
+            dojo.byId( 'google_type' ).innerHTML = "Google user type = " + userObj.google_type;
+        }
+    }
+    </script>
+  
+  <div class="googleConsumer">
+    <div id="oauth2" class="hidden" >
+      <div style="float:left;">
+        <button id="addGoogleService" class="addGoogleService">Add Google Consumer Account...</button>
+      </div>
+      <div style="float:left;margin-top:10px">
+        <input class="addGoogleCheck" type="checkbox" name="checkBox" id="checkBox" >
+        <label class="addGoogleCheckLabel" for="checkBox">Force Authorize ( New refresh token )</label>        
+      </div>
+      
+      <div style="clear: both;"></div>
+      <div class="addGoogleResult">
+        <p style="margin:15px;">
+          <div class="addGoogleTokenInfo">
+            <div style="float:left;">
+              <a id="remove" href="#">Remove tokens from chamber</a>
+            </div>
+            <div id="remove_status" style="margin-left:10px;color:red;float:left;"></div>
+            <div style="clear: both;"></div>
+            <div style="float:left;">
+              <a id="get_user" href="#">Get user status</a>
+            </div>
+            <div id="is_google" style="margin-left:10px;color:red;float:left;"></div>
+            <div id="google_type" style="margin-left:10px;color:red;float:left;"></div>
+          </div>         
+        </p>
+      </div>
+        
+      <div class="addGoogleResult">
+        <p style="margin:15px;">      
+          <div id="code" class="addGoogleTokenInfo"></div>
+          <div id="email" class="addGoogleTokenInfo"></div>
+          <div id="access_token" class="addGoogleTokenInfo"></div>
+          <div id="refresh_token" class="addGoogleTokenInfo"></div>
+          <div id="token_type" class="addGoogleTokenInfo"></div>
+          <div id="expires_in" class="addGoogleTokenInfo"></div>
+          <div id="id_token" style="" class="addGoogleTokenInfo"></div>
+          <div id="account" class="addGoogleTokenInfo"></div>
+          <div id="api_link" class="addGoogleTokenInfo"></div>
+          <div id="api_email" class="addGoogleTokenInfo"></div>
+          <div id="remove_user" class="addGoogleTokenInfo"></div>         
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

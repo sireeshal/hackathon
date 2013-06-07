@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="https://exchange.pearsonopenclass.com/assets/css/exchange.css" media="screen" charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="https://exchange.pearsonopenclass.com/assets/bootstrap/css/bootstrap.min.css" media="screen" charset="utf-8"/>
+	<script>dojoConfig = {parseOnLoad: true}</script>
+	<script src='http://static-int.static-ecollege.com/dojo/1.6.1/dojo/dojo.js'></script>
+
+	<script>
+	function searchExchange()
+{
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange=function()
+            {
+  			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    			{
+                            displayResults(xmlhttp.responseText);
+    			}
+  		}
+              	xmlhttp.open("GET","/exchange?limit=9&offset=0&query=biology",true);
+                xmlhttp.setRequestHeader('X-Authorization','1.0|idm|idm|affinity=berlin_4fd0cf4f5ee5f77a12b3425b&berlin=4fd0cf4f50ad230ad5b9ab70&campus=berlin:4fd0cf4f5ee5f77a12b3425b|2013-06-06T16:32:50+00:00|2013-06-06T19:32:50+00:00|75272ad2cb7e4a5b0b30c0764762d33b');
+		xmlhttp.send();
+}
+
+ 	 function displayResults(json) {
+        var hits = JSON.parse(json).hits.hits;
+        var results = ""
+        results += "<label>" + hits.length + " Results</label>";
+        results += "<div id='popular' style='width:35%;float:left;'>";
+
+        hits.sort(compare);
+
+        for (var i = 0; i < hits.length; i++) {
+            var title = hits[i]._source.title;
+            var titleString = JSON.stringify(hits[i]._source.title);
+            var previewURL = JSON.stringify(hits[i]._source.thumbnailUrl);
+            var url = JSON.stringify(hits[i]._source.url);
+            var description = JSON.stringify(hits[i]._source.description);
+
+           results += '<button class="btn btn-primary" title=' + description + ' onclick="addToCourse(\'' + title + '\', \'' + hits[i]._source.url + '\' )"><i class="icon-plus icon-white"></i>Add</button>&nbsp;&nbsp;';
+            results += "<img src='MoreInfo.png' title=" + description + " height='20' width='20'/>&nbsp;";
+            results += "<a href=" + url + " target='PreviewPane'>" + title + "</a>&nbsp;&nbsp;";
+            results += "<br/>";
+        }
+        results += "</div>";
+        document.getElementById("results").innerHTML = results;
+    }
+
+    function compare(a, b) {
+        if (a._source.title < b._source.title)
+            return -1;
+        if (a._source.title > b._source.title)
+            return 1;
+        return 0;
+    }
+
+    function addToCourse(title, url) {
+        alert(title + ", " + url);
+    }
+</script>
+</head>
+<body>
+    <div id="main" class="main-wrapper">
+	<div>
+<div class="column-main" role="main">
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="search-bar">
+<label for="search-nav-bar" class="screen-readers-only">Search</label>
+<input type="search" name="searchText" id="search-nav-bar" class="search-query" placeholder="Search for Books, Articles, Videos, Audio, and more…" value>
+<button onclick="searchExchange()" class="submit">Submit</button>
+<div class="search-filter-list" style="display: none"></div>
+<div id="results"></div>
+<div><iframe id="PreviewPane" style="border-width:0;" width="250" height="250"></iframe></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

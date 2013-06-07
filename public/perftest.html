@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf8">
+		<base href="/">
+		<title>Toolbar2.0 Test Page</title>
+		<style>
+			label {
+				width:      100px;
+				float:      left;
+				display:    block;
+				margin-top: 10px;
+			}
+
+			input {
+				padding:    5px;
+				margin-top: 10px;
+				width:      200px;
+				clear:      right;
+				float:      left;
+				display:    block;
+			}
+
+			form {
+				padding-bottom: 30px;
+				margin-bottom:  30px;
+				clear:          both;
+			}
+
+
+		</style>
+	</head>
+	<body>
+		<script>
+			var whit_access_token = getURLParameter( "token" );
+			var whit_refresh_token = getURLParameter( "refresh_token" );
+			var moauth_access_token = getURLParameter( "moauth_token" );
+			var moauth_refresh_token = getURLParameter( "moauth_refresh_token" );
+
+			function getURLParameter( name ) {
+				name = name.replace( /[\[]/, "\\\[" ).replace( /[\]]/, "\\\]" );
+				var regex = new RegExp( "[\\?&]" + name + "=([^&#]*)" );
+				var results = regex.exec( window.location.href );
+				return ( results == null ) ? "" : results[ 1 ];
+			}
+
+			// write out the toolbar script tag
+			document.write('<scr' + 'ipt src="/js/include-toolbar.js" data-whit-access-token="' + whit_access_token + '" type="text/javascript"></scr' + 'ipt>');
+		</script>
+
+	</body>
+</html>

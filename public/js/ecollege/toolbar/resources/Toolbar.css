@@ -1,0 +1,875 @@
+/* TOOLBAR CSS */
+#HeaderWidget ul,
+.ecollege_header_dialog ul {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  list-style: none;
+}
+#HeaderWidget {
+  width: inherit;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: #eeeeee;
+  border-bottom: 6px solid #cccccc;
+  height: 44px;
+  min-width: 1000px;
+  font: 16px/1.4em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+#HeaderWidget .toolbar_unavailable {
+  margin: auto;
+  width: 300px;
+  padding-top: 15px;
+  color: #585858;
+  font-style: italic;
+}
+.ecollege_header_bar {
+  display: none;
+}
+/*** MAIN MENU WIDGET ********************************/
+#MainMenuWidget {
+  margin: 0 auto;
+  text-align: center;
+  width: 40%;
+}
+/* If there is no logo - uncomment this chunk */
+#MainMenuWidget .dijitButtonText {
+  padding: 0 25px 0 0;
+  margin: 0 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #999999;
+  font-size: 19px;
+  font-weight: 300;
+  text-shadow: none;
+  letter-spacing: 0.09em;
+  border-right: none;
+  line-height: 45px;
+  text-indent: 0;
+  max-width: 100%;
+  height: 50px;
+  background: no-repeat url('images/dropdown_arrow_dark.png') right 8px;
+}
+/* If you have a logo uncomment this chunk - width is logo width */
+/*
+#MainMenuWidget .dijitButtonText {
+    background: no-repeat url('logo.png') center 0;
+    width: @logo-width;
+    text-indent: -10000px;
+}
+*/
+#MainMenuWidget .dijitArrowButtonInner {
+  margin: 6px 3px 0;
+}
+#MainMenuWidget .dijitDropDownButton,
+#MainMenuWidget .dijitDropDownButton .dijitButtonNode,
+#MainMenuWidget .dijitDropDownButton .dijitDownArrowButton {
+  height: 50px;
+  width: 100%;
+}
+#HeaderWidget .dijitHover .dijitButtonText {
+  text-shadow: 0px 0px 5px #ffffff;
+}
+#HeaderWidget ul.mainNav {
+  float: left;
+  margin: 7px 0 0 20px;
+  line-height: 43px;
+}
+#HeaderWidget ul.mainNav li {
+  float: left;
+  padding: 0 15px 0 0;
+  font-size: 95%;
+  font-weight: 400;
+  line-height: 43px;
+  height: 45px;
+}
+#HeaderWidget ul.mainNav li a {
+  color: #000;
+  text-decoration: none;
+}
+#HeaderWidget ul.mainNav li a:hover {
+  color: #E84E0F;
+}
+#HeaderWidget ul.mainNav li.selected {
+  color: #424242;
+  font-weight: 500;
+}
+#HeaderWidget ul.myBar {
+  margin: 5px 10px 0 0;
+  padding: 0;
+  float: right;
+  border: 1px solid #dadada;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  height: 32px;
+  -moz-box-shadow: inset 0 0 1px #ffffff;
+  -webkit-box-shadow: inset 0 0 1px #ffffff;
+  box-shadow: inset 0 0 1px #ffffff;
+}
+#HeaderWidget ul.myBar li {
+  float: left;
+}
+#HeaderWidget ul.myBar li:last-child {
+  border-right: none;
+}
+#HeaderWidget .dijitDropDownButton {
+  margin: 0;
+  font-size: inherit;
+  vertical-align: baseline;
+  float: left;
+}
+/*the width of this button controls the width of the dropdown button*/
+#MainMenuWidget .dijitDropDownButton {
+  float: none;
+  width: auto;
+  min-width: 350px;
+}
+#HeaderWidget .dijitDropDownButton .dijitButtonNode {
+  background-color: inherit;
+  background-repeat: no-repeat;
+  background-image: none;
+  border: 0px;
+  padding: 0px;
+  border-radius: inherit;
+  line-height: inherit;
+  -moz-border-radius: inherit;
+  -webkit-border-radius: inherit;
+  box-shadow: inherit;
+  -moz-box-shadow: inherit;
+  -moz-shadow: inherit;
+  -webkit-shadow: inherit;
+  vertical-align: middle;
+}
+#HeaderWidget .dijitDropDownButtonHover .dijitButtonNode {
+  background-image: none;
+}
+#HeaderWidget .dijitDropDownButton .dijitButtonNode img {
+  vertical-align: middle;
+}
+#HeaderWidget .dijitDropDownButton .dijitButtonNode,
+#HeaderWidget .dijitDropDownButton .dijitButtonNode * {
+  cursor: pointer;
+}
+#HeaderWidget .ecollege_profile_widget .dijitDropDownButton .dijitButtonNode {
+  height: 47px;
+  vertical-align: baseline;
+  background-image: none;
+}
+#HeaderWidget .mainNav .dijitDropDownButton .dijitDownArrowButton * {
+  vertical-align: baseline;
+}
+#HeaderWidget .dijitDownArrowButton .dijitArrowButtonInner {
+  display: none;
+}
+#HeaderWidget .dijitArrowButtonChar {
+  display: none;
+}
+#HeaderWidget .mainNav .dijitButtonNode {
+  background-image: none;
+  vertical-align: baseline;
+}
+div.ecollege_header_dialog {
+  padding: 0;
+  list-style: none;
+  width: 300px;
+}
+.ecollege_header_dialog .toolbar_no_courses {
+  color: #585858;
+  font-style: italic;
+  text-align: center;
+  margin: auto;
+  padding: 10px;
+  text-transform: capitalize;
+}
+.ecollege_header_dialog .dijitTooltipContainer {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  font-size: 123x;
+  overflow-y: auto;
+  border-radius: inherit;
+  -moz-border-radius: inherit;
+  -webkit-border-radius: inherit;
+  -moz-box-shadow: 10px 10px 5px #888;
+  -webkit-box-shadow: 10px 10px 5px #888;
+  box-shadow: 2px 2px 10px #888;
+  background-color: #fff;
+  background-image: none;
+}
+.ecollege_header_dialog .dijitTooltipConnector {
+  display: none;
+}
+.ecollege_header_dialog ul a {
+  clear: both;
+  display: block;
+  background-image: none;
+  color: #195AA6;
+  padding: 6px 15px;
+  text-decoration: none;
+}
+.ecollege_header_dialog ul a:hover {
+  color: #E84E0F;
+  /*background-color:#F7F7F7;*/
+
+}
+div.ecollege_header_dialogPopup {
+  /*max-width: 400px;*/
+
+  box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.25);
+  background-color: transparent;
+  margin: 0;
+  border: 1px solid #D6D0C5;
+  padding: 0;
+  position: absolute;
+}
+div.ecollege_header_dialogPopup span.main_menu_course-title {
+  font-weight: bold;
+}
+div.ecollege_header_dialogPopup i {
+  background: url(images/OC-glyphicons-halflings.png) no-repeat;
+  width: 16px;
+  height: 16px;
+  margin: 1px 7px 0 0;
+  background-position: -215px 0;
+  display: block;
+  float: left;
+}
+div.ecollege_header_dialogPopup i.mainmenu-icon-exchange {
+	background: url(images/ocx-isolated.png) no-repeat;
+	background-position: 0 0;
+	height: 12px;
+	margin-top: 4px;
+	width: 11px;
+}
+div.ecollege_header_dialogPopup h6 {
+  margin: 0;
+  padding: 10px 0 0 15px;
+  font-size: 14px;
+}
+div.ecollege_header_dialogPopup ul li {
+  border-bottom: 1px solid #ddd;
+}
+div.ecollege_header_dialogPopup ul li:last-child {
+  border: none;
+}
+div.ecollege_header_dialogPopup ul.toolbar_main_menu_courses {
+  border-bottom: 1px solid #ddd;
+  max-height: 400px;
+  overflow: auto;
+  padding-bottom: 10px;
+}
+
+
+div.ecollege_header_dialogPopup ul.toolbar_main_menu_courses li {
+  border-bottom: none;
+}
+div.ecollege_header_dialogPopup ul.toolbar_main_menu_courses li a {
+  padding-bottom: 3px;
+  line-height: 18px;
+}
+div.ecollege_header_dialogPopup ul.toolbar_main_menu_courses li .ecollege-toolbar-course-info {
+  padding: 10px;
+}
+div.ecollege_header_dialogPopup li a {
+  font-size: 14px;
+}
+div.ecollege_header_dialogPopup .main_menu_course-code {
+  font-weight: bold;
+}
+div.ecollege_header_dialogPopup i.mainmenu-icon-home {
+  background-position: 0px -23px;
+}
+div.ecollege_header_dialogPopup i.mainmenu-icon-courses {
+  background-position: -265px 0px;
+}
+div.ecollege_header_dialogPopup i.mainmenu-icon-share {
+  background-position: -167px -146px;
+}
+div.ecollege_header_dialogPopup .dijitTooltipContents {
+  padding: 0;
+}
+div.ecollege_header_dialog {
+  min-width: 120px;
+  width: 350px;
+}
+.ecollege_google_widget .dijitDropDownButtonFocused .dijitButtonNode {
+  background-color: #FFF;
+  height: 36px;
+  z-index: 99999;
+}
+.ecollege_google_widget .dijitDropDownButton .dijitButtonContents {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+.ecollege_header_widget .dijitOffScreen,
+.ecollege_google_widget .dijitOffScreen {
+  position: absolute;
+  visibility: hidden;
+  left: 50%;
+  top: -10000px;
+}
+.ecollege_header_widget .dijitInline {
+  display: inline-block;
+  border: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+/* Changes below for the new methodology of connecting the badge */
+.ecollege_google_widget .badge_count,
+#NotificationWidget .notification-count {
+  margin: 30px auto 0 auto;
+  display: inline-block;
+  line-height: 13px;
+  padding: 1px 3px;
+  background-color: #eee;
+  color: #de4205;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  -web-kit-border-radius: 0 0 2px 2px;
+  -moz-border-radius: 0 0 2px 2px;
+  border-radius: 0 0 2px 2px;
+  -webkit-box-shadow: 0 1px 1px #666;
+  -moz-box-shadow: 0 1px 1px #666;
+  box-shadow: 0 1px 1px #666;
+  position: relative;
+}
+.ecollege_google_widget .badge_count:before,
+#NotificationWidget .notification-count:before {
+  content: "";
+  height: 7px;
+  left: 0;
+  position: absolute;
+  top: -7px;
+  width: 100%;
+  background-image: url("images/badge_connector.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+#NotificationWidget .notification-count.no-count {
+  display: none;
+}
+.ecollege_google_widget_content {
+  clear: both;
+  padding: 0;
+  margin: 0;
+}
+.ecollege_google_widget_dialogPopup {
+  -moz-box-shadow: 10px 10px 5px #888;
+  -webkit-box-shadow: 10px 10px 5px #888;
+  box-shadow: 2px 2px 10px #888;
+  margin: 0;
+  border: 1px solid #696969;
+  position: absolute;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+}
+.ecollege_google_widget_dialog .dijitTooltipContainer {
+  padding: 0;
+  border: 0;
+  overflow-y: auto;
+  width: 350px;
+  height: 350px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+.ecollege_google_widget_dialog {
+  padding: 0;
+}
+.ecollege_google_widget_dialog .dijitTooltipContents {
+  padding: 0;
+  font-family: arial, sans-serif;
+  background: #ffffff url('images/header_background.png') repeat-x;
+}
+.ecollege_google_widget_dialog .dijitTooltipConnector {
+  display: none;
+  top: 0;
+  left: 3px;
+  background-position: -31px 0;
+  width: 16px;
+  height: 14px;
+  border: 0;
+  z-index: 2;
+  /*  background-image: url(images/tooltip.png);
+    */
+  background-repeat: no-repeat;
+  position: absolute;
+}
+.ecollege_google_widget_dialog .ecollege_google_widget_header_email,
+.ecollege_google_widget_dialog .ecollege_google_widget_header_docs,
+.ecollege_google_widget_dialog .ecollege_google_widget_header_calendar,
+.ecollege_google_widget_dialog .ecollege_google_widget_header_whos_online {
+  float: left;
+  margin: 5px 12px 5px 5px;
+  padding-left: 30px;
+  font-weight: bold;
+  height: 25px;
+  font-size: 12px;
+}
+.ecollege_header_widget_notification .ecollege_header_notifications {
+  font-size: 12px;
+}
+.ecollege_header_widget_search .ecollege_header_search {
+  font-size: 12px;
+}
+.ecollege_google_widget_dialog .ecollege_google_widget_link {
+  float: right;
+  margin: 5px 12px 0 12px;
+}
+.ecollege_google_widget_dialog .ecollege_google_widget_footer {
+  padding: 10px 0;
+  text-align: center;
+  width: 100%;
+  bottom: 0;
+  font-weight: bold;
+}
+.ecollege_google_email_widget,
+.ecollege_google_calendar_widget,
+.ecollege_google_docs_widget,
+.ecollege_google_whos_online_widget {
+  padding-top: 0;
+}
+.ecollege_profile_widget {
+  float: left;
+  padding-left: 10px;
+}
+.ecollege_profile_widget span.dijitButtonText {
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+}
+/* Email Widget Specific *****************************************************/
+.ecollege_google_widget_dialog .ecollege_google_widget_header_email {
+  background: url('images/googlemail-25.png') no-repeat;
+}
+.ecollege_google_widget_content .email_message {
+  padding: 12px 12px 12px 12px;
+  color: #585858;
+  line-height: 1.4em;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-color: #DDD;
+}
+#HeaderWidget .ecollege_google_email_widget .dijitDropDownButton .dijitButtonNode {
+  background-image: url('images/toolbar_sprite_light.png');
+  background-position: -90px 0;
+}
+.ecollege_google_widget_content .email_sender {
+  font-weight: bold;
+  color: black;
+}
+.ecollege_google_widget_content .email_title {
+  display: block;
+}
+.ecollege_google_widget_content .email_message .date {
+  float: right;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+.ecollege_google_widget_content .email_summary {
+  font-size: 0.85em;
+}
+/* Calendar Widget Specific *****************************************************/
+.ecollege_google_widget_content .calendar_event {
+  padding: 12px 12px 12px 12px;
+  color: #585858;
+  line-height: 1.4em;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-color: #DDD;
+  height: auto;
+}
+.ecollege_google_widget_dialog .ecollege_google_widget_header_calendar {
+  background: url('images/calendar-25.png') no-repeat;
+}
+#HeaderWidget .ecollege_google_calendar_widget .dijitDropDownButton .dijitButtonNode {
+  background-image: url('images/toolbar_sprite_light.png');
+  background-position: -120px 0;
+}
+.ecollege_google_calendar_widget_dialog .ecollege_google_widget_content {
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-color: #DDD;
+}
+.ecollege_google_widget_content .calendar_event .calendar_date {
+  float: right;
+  font-weight: bold;
+  font-size: 0.9em;
+  color: #585858;
+}
+.ecollege_google_widget_content .calendar_time {
+  clear: left;
+  width: 60px;
+  display: inline-block;
+  vertical-align: top;
+}
+.ecollege_google_widget_content .calendar_time span {
+  font-weight: bold;
+  color: #000;
+}
+.ecollege_google_widget_content .calendar_detail {
+  display: inline-block;
+  vertical-align: top;
+}
+.ecollege_google_widget_content .calendar_location {
+  font-size: 0.85em;
+  color: #585858;
+}
+/* Docs Widget Specific *****************************************************/
+.ecollege_google_widget_dialog .ecollege_google_widget_header_docs {
+  background: url('images/docs-25.png') no-repeat;
+}
+#HeaderWidget .ecollege_google_docs_widget .dijitDropDownButton .dijitButtonNode {
+  background-image: url('images/toolbar_sprite_light.png');
+  background-position: -150px 1px;
+}
+.ecollege_google_docs_widget_dialog .ecollege_google_widget_content {
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-color: #DDD;
+}
+.ecollege_google_widget_content .doc_details {
+  color: #585858;
+  font-size: 0.85em;
+}
+.ecollege_google_widget_content .doc_details span {
+  color: #000;
+  font-weight: bold;
+}
+.ecollege_google_widget_content .google_doc_item {
+  padding: 12px 12px 12px 28px;
+  line-height: 1.4em;
+  background-position: 12px 15px;
+  background-repeat: no-repeat;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-color: #DDD;
+  height: auto;
+}
+#HeaderWidget .ecollege_google_widget_content .google_doc_document {
+  background-image: url('images/icon_7_document_list.png');
+}
+#HeaderWidget .ecollege_google_widget_content .google_doc_presentation {
+  background-image: url('images/icon_7_presentation_list.png');
+}
+#HeaderWidget .ecollege_google_widget_content .google_doc_spreadsheet {
+  background-image: url('images/icon_7_spreadsheet_list.png');
+}
+#HeaderWidget .ecollege_google_widget_content .google_doc_pdf {
+  background-image: url('images/icon_7_pdf_list.png');
+}
+#HeaderWidget .ecollege_google_widget_content .google_doc_video {
+  background-image: url('images/icon_7_video_list.png');
+}
+#HeaderWidget .ecollege_google_widget_content .google_doc_drawing {
+  background-image: url('images/icon_7_drawing_list.png');
+}
+#HeaderWidget .ecollege_google_widget_content .google_doc_form {
+  background-image: url('images/icon_7_form_list.png');
+}
+#HeaderWidget .ecollege_google_widget_content .google_doc_image {
+  background-image: url('images/icon_7_image_list.png');
+}
+#HeaderWidget .ecollege_google_widget_content .google_doc_unread {
+  font-weight: bold;
+}
+/* Who's Online Widget Specific *****************************************************/
+.ecollege_google_whos_online_dialog .ecollege_google_widget_header_whos_online {
+  background: url('images/icon-online.png') no-repeat;
+}
+#HeaderWidget .ecollege_google_whos_online_widget .dijitDropDownButton .dijitButtonNode {
+  background-image: url('images/toolbar_sprite_light.png');
+  background-position: -30px 0;
+}
+.ecollege_profile_widget .toolbar-profile-image {
+  float: left;
+  width: 50px;
+  height: 50px;
+  margin-top: -3px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  border: 5px solid #e5dfb9;
+  -webkit-box-shadow: 1px 1px 5px 0px #333;
+  -moz-box-shadow: 1px 1px 5px 0px #333;
+  box-shadow: 1px 1px 5px 0px #333;
+}
+.ecollege_profile_widget .dijitButtonText img {
+  width: 50px;
+  height: 50px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+  margin-right: 10px;
+  display: block;
+}
+#HeaderWidget .ecollege_profile_widget .toolbar-profile-name {
+  float: left;
+  padding: 15px 25px 0 3px;
+  font-size: 14px;
+  text-shadow: none;
+  color: #999999;
+  background: no-repeat url('images/dropdown_arrow_dark.png') right 10px;
+}
+.ecollege_profile_widget .toolbar-profile-name:hover {
+  text-shadow: 0px 0px 5px #ffffff;
+}
+.ecollege_profile_widget .dijitDropDownButton {
+  height: 38px;
+}
+div.ecollege_google_widget_profile {
+  width: 200px;
+}
+.ecollege_header_dialog .toolbar_profile_dropdown li a {
+  font-size: 14px;
+  line-height: 130%;
+  padding: 6px;
+}
+.ecollege_header_dialog .toolbar_profile_dropdown .list-divider {
+  padding: 2px 0;
+}
+.ecollege_header_dialog .toolbar_profile_dropdown .help-row a,
+.ecollege_header_dialog .toolbar_profile_dropdown .help-row span {
+  clear: none;
+  float: left;
+}
+/* Generic */
+.ecollege_google_widget_content .ajax_loading_image {
+  display: block;
+  float: left;
+  background-image: url('images/ajax-loader.gif');
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding-left: 20px;
+  margin: 10px;
+  color: #666;
+}
+.ecollege_google_widget_content .ajax_status_message {
+  padding: 10px;
+  float: left;
+  color: #666;
+}
+.ecollege_google_widget_content .clear_both {
+  clear: both;
+}
+.ecollege_google_widget_content .accessible_label {
+  margin-left: -100000px;
+}
+/* Who's Online */
+.ecollege_google_whos_online_dialog ul {
+  margin: 0;
+}
+.ecollege_google_whos_online_dialog .ecollege_google_widget_content ul {
+  padding: 0;
+}
+.ecollege_google_whos_online_dialog ul li {
+  display: block;
+  border-bottom: 1px solid #E8E1D5;
+  padding: 5px;
+}
+.ecollege_google_whos_online_dialog .whos_online_avatar_wrapper {
+  display: block;
+  float: left;
+  overflow: hidden;
+  width: 30px;
+  height: 30px;
+  border-radius: 19px;
+  box-shadow: 1px 1px 8px #666;
+  border: 2px solid #fff;
+  padding: 0;
+  margin-right: 10px;
+}
+.ecollege_google_whos_online_dialog .whos_online_avatar_wrapper img {
+  max-width: 30px;
+  max-height: 30px;
+  border-radius: 15px;
+  border: 0;
+}
+.ecollege_google_whos_online_dialog .whos_online_line_item h4 {
+  margin: 0;
+}
+.ecollege_google_whos_online_dialog .whos_online_line_item > h4 > a {
+  display: block;
+  margin: 0 0 2px 0;
+  padding: 0;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 140%;
+}
+.ecollege_google_whos_online_dialog .ecollege_google_widget_content > .ajax_status_message {
+  padding: 10px;
+  float: left;
+  color: #666;
+  font-size: 90%;
+  font-weight: bold;
+  line-height: 140%;
+}
+.ecollege_google_whos_online_dialog .whos_online_chat_icon {
+  display: block;
+  background: url('images/chatIcon.png') no-repeat;
+  padding-left: 25px;
+  float: left;
+  height: 20px;
+}
+.ecollege_google_whos_online_dialog .whos_online_skype_icon {
+  display: block;
+  background: url('images/skypeIcon.png') no-repeat;
+  padding-left: 25px;
+  float: left;
+  height: 20px;
+}
+/*** NOTIFICATIONS WIDGET ********************************/
+#NotificationWidget {
+  background-image: url('images/toolbar_sprite_light.png');
+  background-position: -60px 1px;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  padding: 1px;
+}
+#SearchWidget {
+  background-image: url('images/toolbar_sprite_light.png');
+  background-position: -60px 1px;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  padding: 1px;
+}
+/*** STREAM WIDGET ********************************/
+#HeaderWidget .ecollege_google_stream_widget .dijitDropDownButton .dijitButtonNode {
+  background-image: url('images/toolbar_sprite_light.png');
+  background-position: 0 0;
+}
+.ecollege_header_widget_notification .dijitTooltipContents {
+  background: url("images/header_background.png") repeat-x scroll 0 0 #ffffff;
+}
+.ecollege_header_widget_notification .ecollege_header_notifications {
+  background: url("images/notifications-icon.png") no-repeat scroll 0 0 transparent;
+  font-weight: bold;
+  height: 19px;
+  margin: 4px 12px 5px 5px;
+  padding: 2px 5px 5px 34px;
+}
+
+.ecollege_header_widget_search .ecollege_header_search {
+  background: url("images/search-icon.png") no-repeat scroll 0 0 transparent;
+  font-weight: bold;
+  height: 19px;
+  margin: 4px 12px 5px 5px;
+  padding: 2px 5px 5px 34px;
+}
+
+.ecollege_search {
+  background: url("images/search-icon.png") no-repeat scroll 0 0 transparent;
+  height: 30px;
+  width: 30px;
+
+}
+
+.ecollege_header_widget_search .search-menu {
+  max-height: 500px;
+}
+.ecollege_header_widget_notification .notifications-menu {
+  max-height: 500px;
+}
+.ecollege_header_widget_notification .notifications-menu a {
+  text-decoration: none;
+}
+.ecollege_header_widget_notification .notifications-menu li {
+  border-bottom: 1px solid #ccc;
+  padding: 4px 0;
+  position: relative;
+}
+.ecollege_header_widget_notification .notifications-menu .notification-item {
+  color: #333;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 18px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #ccc;
+}
+.ecollege_header_widget_notification .notifications-menu .notification-item:hover {
+  background-color: #E5F3FA;
+}
+.ecollege_header_widget_notification .notifications-menu .old-notification div {
+  background-color: #eee;
+  color: #666;
+}
+.ecollege_header_widget_notification .notifications-menu a.old-notification .notification-item:hover {
+  background-color: #ddd;
+}
+.ecollege_header_widget_notification .notifications-menu a.old-notification .notification-item:hover div {
+  background-color: #ddd;
+}
+.ecollege_header_widget_notification .notifications-menu .old-notification .icon {
+  opacity: 0.6;
+}
+.ecollege_header_widget_notification .notifications-menu a b {
+  font-weight: bold;
+}
+.ecollege_header_widget_notification .notifications-menu .content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ecollege_header_widget_notification .notifications-menu .timestamp,
+.ecollege_header_widget_notification .notifications-menu .subtitle,
+.ecollege_header_widget_notification .notifications-menu .thread-title,
+.ecollege_header_widget_notification .notifications-menu .course-title {
+  color: #666;
+  font-size: 11px;
+  line-height: 16px;
+  padding-left: 27px;
+}
+.ecollege_header_widget_notification .notifications-menu .thread-title {
+  font-style: italic;
+}
+.ecollege_header_widget_notification .notifications-menu .title {
+  padding: 0 0 3px 27px;
+  position: relative;
+}
+.ecollege_header_widget_notification .notifications-menu .title .icon {
+  background: transparent url(images/glyphicons-halflings.png) no-repeat 0 0;
+  height: 14px;
+  left: -2px;
+  position: absolute;
+  top: 3px;
+  width: 14px;
+}
+.ecollege_header_widget_notification .notifications-menu .title .icon.icon-followMe {
+  background-position: -167px 0;
+}
+.ecollege_header_widget_notification .notifications-menu .title .icon.icon-thread,
+.ecollege_header_widget_notification .notifications-menu .title .icon.icon-comment {
+  background-position: -239px -120px;
+}
+.ecollege_header_widget_notification .notifications-menu .title .icon.icon-submission {
+  background-position: -264px 0;
+}
+.ecollege_header_widget_notification .notifications-menu .notification-message {
+  background-color: #eee;
+  color: #666;
+  line-height: 18px;
+  padding: 6px 10px;
+}
+/* a specific override for the admin area to keep the shadow from appearing */
+.admin .toolBar {
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+}

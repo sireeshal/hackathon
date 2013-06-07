@@ -1,0 +1,10 @@
+description     "Berlin Toolbar Service"
+author          "Mike Brevoort"
+start on startup
+
+env TOOLBAR_CONFIG=${TOOLBAR_CONFIG}
+env NODE_ENV=production
+	
+respawn
+
+exec n as ${NODE_VERSION} ${toolbar_dir}/app/server.js ${TOOLBAR_PORT} 2>&1 >> /var/log/toolbar_service.log

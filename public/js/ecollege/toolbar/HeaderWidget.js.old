@@ -1,0 +1,594 @@
+// put into ecollege.toolbar now for POC, will move if pans out obviously
+
+dojo.provide("ecollege.toolbar.HeaderWidget");
+
+dojo.require("dijit._Widget");
+dojo.require("dijit._Templated");
+
+dojo.require("dojo.io.script");
+dojo.require("dojo.cache");
+
+dojo.require("ecollege.toolbar.Toolbar");
+dojo.require("ecollege.toolbar.EmailWidget");
+dojo.require("ecollege.toolbar.CalendarWidget");
+dojo.require("ecollege.toolbar.DocsWidget");
+dojo.require("ecollege.toolbar.WhosOnlineWidget");
+dojo.require("ecollege.toolbar.ProfileWidget");
+dojo.require("ecollege.toolbar.MainMenuWidget");
+dojo.require("ecollege.toolbar.socialdata.PeopleDataPoll");
+dojo.require("ecollege.toolbar.socialdata.KeepMeOnline");
+dojo.require("ecollege.social.chat.ChatManager");
+dojo.require("ecollege.toolbar.NotificationWidget");
+dojo.require("ecollege.toolbar.StreamWidget");
+dojo.require("ecollege.toolbar.Stats");
+
+
+dojo.declare("ecollege.toolbar.HeaderWidget", [dijit._Widget, dijit._Templated], {
+	templateString: dojo.cache("ecollege.toolbar", "resources/HeaderWidget.html"),
+	widgetsInTemplate: true,
+
+	baseClass: "ecollege_header_widget",
+
+	googleEmailWidget: null,
+	googleCalendarWidget: null,
+	googleDocsWidget: null,
+
+	whosOnlineWidget: null,
+	peopleDataPoll: null,
+	keepMeOnline: null,
+	chatManager: null,
+    notificationWidget: null,
+    stats: null,
+
+	postCreate: function() {
+		this.inherited(arguments);
+		var moduleUrl = dojo.moduleUrl("ecollege.toolbar.HeaderWidget");
+		this.serviceUrl = (moduleUrl.scheme ? moduleUrl.scheme + "://" + moduleUrl.authority : "" ) + "/toolbar";
+		this.anonServiceUrl = this.serviceUrl + "-anon";
+
+        this.stats = new ecollege.toolbar.Stats();
+        this.utils = new ecollege.toolbar.Utils();
+	},
+
+	startup: function() {
+		this.inherited(arguments);
+
+		var self = this;
+		var toolbar = ecollege.toolbar.Toolbar;
+
+		//self.mainNavNode = dojo.query(".mainNav", this.domNode)[0];  //TODO: figure out .mainNav equivalent
+		self.myBarNode = dojo.query(".myBar", this.domNode)[0];
+		self.instNameNode = dojo.query(".institutionName", this.domNode)[0];
+
+
+		// we don't like IE
+		if(document.documentMode && document.documentMode < 8) {
+			return self._clobberWithGlobalMessage("We're sorry, your browser is unsupported");
+		}
+
+		// if there are no tokens and a slug is passed, we want to show an anonymous version of the
+		// toolbar primarily for the login page.
+		if(toolbar.config.whit_access_token || toolbar.config.moauth_access_token) {
+			self._startupUserToolbar();
+		}
+		else {
+			self._startupAnonToolbar();
+		}
+	},
+
+	_startupUserToolbar: function() {
+		var self = this;
+		var toolbar = ecollege.toolbar.Toolbar;
+
+		//The parameters to pass to xhrGet, the url, how to handle it, and the callbacks.
+		var jsonpArgs = {
+			 url: this.serviceUrl,
+			 callbackParamName: "callback",
+			 preventCache: true,
+			 content: {
+				 whit_access_token: toolbar.config.whit_access_token || undefined,
+				 whit_refresh_token: toolbar.config.whit_refresh_token || undefined,
+				 moauth_access_token: toolbar.config.moauth_access_token || undefined,
+				 moauth_refresh_token: toolbar.config.moauth_refresh_token || undefined
+			 },
+			 load: function(data) {
+				 TIMERSTAT.record( 'services loaded' );
+
+				 if(data.status !== "success") {
+					window.console && window.console.log && window.console.log("Toolbar data load failed! status = " + data.status + " (" + data.code + ")");
+					self._clobberWithGlobalMessage("The toolbar is currently unavailable");
+				 }
+				 else {
+					 data = data && data.data;
+
+					 ecollege.toolbar.Toolbar.data = data;
+
+					 // add the insitution override CSS
+					self._addCssOverride(data);
+
+					// we don't care about these links if we're Uber Admin
+					if ( !data.is_super_admin ) {
+
+						// initialize the ajaxmanager
+						self._includeAjaxManager();
+							
+						dojo.place( '<li><div id="StreamWidget"></div></li>', self.myBarNode );						
+						dojo.place( '<li><div id="WhosOnlineWidget"></div></li>', self.myBarNode );
+
+						// social widgets (whosonline, chat, and their providers)
+						if (data.institution.is_social) {
+                            
+							dojo.place( '<li><div id="NotificationWidget"></div></li>', self.myBarNode );
+							
+							self._loadNotifications();
+//							self._loadStreams();
+						}
+						
+						self._initSocialWidgets();
+						
+						// google widgets
+						if(data.institution.is_google) {
+                            console.log("Initializing Google Widgets...");
+							self._loadGoogleWidgets();
+						}
+
+						self._wireUpGoogleOauthFlowEvents();
+					}
+
+					if(data.config.google_analytics_tracker) {
+						self._insertGoogleAnalytics(data.config.google_analytics_tracker, data.institution.name || undefined, data.institution.is_google || false);
+					}
+					
+					// initialize widgets
+					self.mainMenuWidget = new ecollege.toolbar.MainMenuWidget({}, 'MainMenuWidget' );
+					
+					self.profileWidget = new ecollege.toolbar.ProfileWidget({
+						isSuperAdmin: !!data.is_super_admin
+					},'ProfileWidget');
+					
+					// draw widgets
+					self.mainMenuWidget.startup();
+                    try {
+                        self.profileWidget.startup();
+                    }
+                    catch(e){
+                        this.utils.log('Profile Widget startup error error: ' + e);
+                    }
+
+					console.log("Initializing Exchange...");
+					self._addExchangeLink(data);
+
+					self._announceReady();
+					
+					// fire off refresh interval
+//					setInterval( function() {
+//
+//						dojo.xhrGet( {
+//							url: data.config.root + '/api/auth/refresh?refresh_token=' + data.tokens.whit_refresh_token,
+//							handleAs: 'json'
+//						});
+//
+//					}, data.config.refresh_interval );
+
+					TIMERSTAT.record( 'widgets loaded' );
+				 }
+			 },
+			 error: function(error) {
+				 //self.mainNavNode.innerHTML = "An unexpected error occurred: " + error;
+			 }
+		};
+		dojo.io.script.get(jsonpArgs);
+
+	},
+
+	_loadGoogleWidgets: function() {
+		var data = ecollege.toolbar.Toolbar.data;
+		var self = this;
+
+
+        if(!self.googleEmailWidget) {
+            dojo.place('<li><div id="EmailWidget"></div></li>', self.myBarNode);
+            self.googleEmailWidget = new ecollege.toolbar.EmailWidget({ domain: data.institution.google_domain, stats: self.stats },'EmailWidget');
+            self.googleEmailWidget.startup();
+		}
+		else {
+            self.googleEmailWidget.reload();
+		}
+
+		if(!self.googleCalendarWidget) {
+            dojo.place('<li><div id="CalendarWidget"></div></li>', self.myBarNode);
+            self.googleCalendarWidget = new ecollege.toolbar.CalendarWidget({ domain: data.institution.google_domain, stats: self.stats},'CalendarWidget');
+            self.googleCalendarWidget.startup();
+		}
+		else {
+				self.googleCalendarWidget.reload();
+		}
+
+		if(!self.googleDocsWidget) {
+            dojo.place('<li><div id="DocsWidget"></div></li>', self.myBarNode);
+            self.googleDocsWidget = new ecollege.toolbar.DocsWidget({ domain: data.institution.google_domain, is_consumer: data.institution.is_consumer, stats: self.stats },'DocsWidget');
+            self.googleDocsWidget.startup();
+		}
+		else {
+            self.googleDocsWidget.reload();
+		}
+	},
+
+	_unloadGoogleWidgets: function() {
+		if(this.googleEmailWidget) {
+			this.googleEmailWidget.destroy();
+			this.googleEmailWidget = null;
+		}
+		if(this.googleCalendarWidget) {
+			this.googleCalendarWidget.destroy();
+			this.googleCalendarWidget = null;
+		}
+		if(this.googleDocsWidget) {
+			this.googleDocsWidget.destroy();
+			this.googleDocsWidget = null;
+		}
+	},
+
+	_startupAnonToolbar: function() {
+		var self = this;
+		var toolbar = ecollege.toolbar.Toolbar;
+
+		var jsonpArgs = {
+			 url: this.anonServiceUrl,
+			 callbackParamName: "callback",
+			 preventCache: true,
+			 content: {
+				 slug: toolbar.config.slug || undefined
+			 },
+			 load: function(data) {
+				 if(data.status !== "success") {
+					window.console && window.console.log && window.console.log("Toolbar data load failed! status = " + data.status + " (" + data.code + ")");
+					self._clobberWithGlobalMessage("The toolbar is currently unavailable");
+				 }
+				 else {
+					 data = data && data.data;
+
+					 console.log( data );
+
+					// add the insitution override CSS
+					self._addCssOverride(data);
+
+					// update institution name
+					self.instNameNode.innerHTML = data.institution.name;
+
+					if(dojo.exists("config.google_analytics_tracker", data)) {
+						self._insertGoogleAnalytics(data.config.google_analytics_tracker);
+					}
+
+				 }
+			 },
+			 error: function(error) {
+				 //self.mainNavNode.innerHTML = "An unexpected error occurred: " + error;
+			 }
+		};
+		dojo.io.script.get(jsonpArgs);
+
+	},
+
+    _addExchangeLink: function (data) {
+        var toolbar = ecollege.toolbar.Toolbar;
+
+        // only add the exchange link of the exchange_url is included in the config
+        if (data.config.exchange_url) {
+
+            //The parameters to pass to xhrGet, the url, how to handle it, and the callbacks.
+            //data.config.exchange_url = 'http://localhost:1337';
+            var jsonpArgs = {
+                url: data.config.exchange_url,
+                callbackParamName: "callback",
+                preventCache: true,
+                content: {
+                    whit_access_token: data.tokens.whit_access_token || undefined,
+                    whit_refresh_token: data.tokens.whit_refresh_token || undefined,
+                    format: 'jsonp'
+                },
+                load: function (data) {
+                    if (data.status === "success") {
+                        console.log('EXCHANGE');
+                        var script = dojo.create('script', {
+                            type: 'text/javascript',
+                            innerHTML: (data.script) ? data.script : ''
+                        }, dojo.body());
+
+                        var li = Exchange.render(),
+                            nav = dojo.query('.toolbar_main_menu_dropdown')[0];
+						
+						// customize the inner html for the link
+						dojo.query( 'a', li )[ 0 ].innerHTML = '<i class="mainmenu-icon-exchange"></i> Exchange';
+
+                        dojo.place(li, nav);
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            };
+            dojo.io.script.get(jsonpArgs);
+        }
+    },
+
+	_addCssOverride: function(data) {
+		var cssRoot = data.institution.css_override_root;
+		console.log( ecollege.toolbar.Toolbar.config );
+		var consumer = ecollege.toolbar.Toolbar.config.consumer;
+		var head = dojo.query("head")[0];
+
+		if(cssRoot) {
+			// inject the stylesheet into the head element for the toolbar institutional override
+			dojo.create("link", {
+				type: "text/css",
+				rel:"stylesheet",
+				href: cssRoot + "/toolbar/inst-override.css"
+			}, head);
+
+			// if a consumer was specified on the toolbar include, attempt to load the app override CSS
+			// for the consumer app
+			if(consumer) {
+				dojo.create("link", {
+					type: "text/css",
+					rel:"stylesheet",
+					href: cssRoot + "/toolbar/" + consumer + "/app-override.css"
+				}, head);
+
+			}
+		}
+	},
+
+	/**
+	 * Fire the callback on the ready deferred object registered to ecollege.toolbar.Toolbar
+	 */
+	_announceReady: function() {
+		var toolbar = ecollege.toolbar.Toolbar,
+			readyState = {
+				tokens: dojo.clone(toolbar.data.tokens),
+				is_google: toolbar.data.institution.is_google
+			};
+
+		ecollege.toolbar.Toolbar._readyDeferred.callback(readyState);
+	},
+
+	_wireUpGoogleOauthFlowEvents: function() {
+		var data = ecollege.toolbar.Toolbar.data,
+				self = this;
+
+		dojo.subscribe("google-authorization", function(message) {
+			if(message.status === 'success') {
+				data.institution.is_google = true;
+				self._loadGoogleWidgets();
+			}
+		});
+
+		dojo.subscribe("google-remove", function(message) {
+			if(message.status === 'success') {
+				data.institution.is_google = false;
+				self._unloadGoogleWidgets();
+			}
+		});
+	},
+
+	_includeAjaxManager: function() {
+		 // check for AjaxManager, and insert our own if needed
+		console && console.log("Checking for AjaxManager...");
+		 // if the consuming app did not pass us an instance via config override, and there is no reference in the global namespace
+		if (!ecollege.toolbar.Toolbar.config.ajax_manager && !window.ecxd) {
+			console && console.log("No reference found, inserting now...");
+			dojo.create("script", {
+				type: "text/javascript",
+				src: ecollege.toolbar.Toolbar.data.config.static_root + "/ecxd/3.0.0.0/ecxd.js"
+			}, dojo.query("head")[0]);
+		}
+	},
+	
+	_loadNotifications: function() {
+		console.log("Loading notifications");
+		
+		var data = ecollege.toolbar.Toolbar.data;
+		var affinityId = data.tokens && data.tokens.affinity_id || 'fail';
+		var token = encodeURIComponent(data.tokens.whit_access_token) || '';
+
+		this.notificationWidget = new ecollege.toolbar.NotificationWidget({
+			toolbarContext: ecollege.toolbar.Toolbar.config.consumer, 
+			data: data.notifications,
+			settings: {
+				rootUrl: data.config.notifications_root_url,
+				url: dojo.string.substitute( data.config.notifications_url, { affinity_id: affinityId, token: token }),
+				allUrl: dojo.string.substitute( data.config.notifications_all_url, { affinity_id: affinityId, token: token }),
+				readUrl: dojo.string.substitute( data.config.notifications_read_url, { affinity_id: affinityId, token: token }),
+				interval: data.config.notifications_polling_interval,
+				method: data.config.notifications_method
+			}
+		}, "NotificationWidget");
+	},
+	
+	_loadStreams: function() {
+		console.log("Loading Streams");
+		
+		var data = ecollege.toolbar.Toolbar.data;
+		var affinityId = data.tokens && data.tokens.affinity_id || 'fail';
+		var token = encodeURIComponent( data.tokens.whit_access_token ) || '';
+
+		this.streamWidget = new ecollege.toolbar.StreamWidget({
+			toolbarContext: ecollege.toolbar.Toolbar.config.consumer,
+			affinityId: affinityId,
+			settings: {
+				inSocial: !!window.manhattanApp,
+				inCourse: !!window.dv
+			}
+		}, 'StreamWidget' );
+	},
+
+	_initSocialWidgets: function() {
+		//console.log("_initSocialWidgets()");
+		console.log("Initializing Social Widgets...");
+
+		var configOverride = dojo.getObject("ecollege.toolbar.Toolbar.config", true),
+			iAjaxMgrCheck = 0,
+			data = ecollege.toolbar.Toolbar.data;	
+
+		if (configOverride.ajax_manager || window.ecxd) {
+			console.log("AjaxManager found: wiring up widgets");
+
+			// Always wire up Whos Online
+			this.whosOnlineWidget = new ecollege.toolbar.WhosOnlineWidget({
+				toolbarContext: ecollege.toolbar.Toolbar.config.consumer, 
+				is_social: data.institution.is_social,
+				profile_url: data.config.profile_url,
+                stats: this.stats
+			}, "WhosOnlineWidget");
+			
+			this.whosOnlineWidget.startup();
+
+			// AjaxManager for social data
+			var getAjaxManagerInstance = function() {
+				var ajax;
+				if (configOverride.ajax_manager) {
+					ajax = configOverride.ajax_manager;
+				}
+				else {
+					/* Can't use AjaxCache yet due to a bug with having multiple instances on the page
+					ajax = new ecxd.decorators.AjaxCache({
+						component: ecxd.AjaxManager.getInstance(),
+						secondsToCache: 60,
+						invalidateCacheMap: [] // empty array means we have no invalidation mapping to specify
+					});
+					*/
+					ajax = ecxd.AjaxManager.getInstance();
+				}
+				return ajax;
+			};
+
+			// Config for social data
+			var createServiceConfig = function() {
+				var cfg = {
+					baseUrl: {
+						wsod: ecollege.toolbar.Toolbar.data.config.m_api_root,
+						affinityPresence: ecollege.toolbar.Toolbar.data.config.affinity_presence_root,
+						affinityPersona: ecollege.toolbar.Toolbar.data.config.affinity_persona_root
+					},
+					tokenFunctions: {
+						getXAuth: function() {
+							return ecollege.toolbar.Toolbar.data.tokens.whit_access_token || ecollege.toolbar.Toolbar.data.tokens.moauth_access_token;
+						},
+						getAffinityAuth: function() {
+							return ecollege.toolbar.Toolbar.data.tokens.affinity_access_token;
+						}
+					},
+					ajaxManager: getAjaxManagerInstance()
+				};
+				return cfg;
+			};
+
+			// Social data
+			if (configOverride.manage_social_people_data_poll != false) {
+				// forward events from peopledatapoll to whosonline
+				dojo.subscribe("/ecollege/toolbar/socialdata/PeopleDataPoll/poll", this, function(p_eventData) {
+					dojo.publish("/ecollege/toolbar/WhosOnlineWidget/updatePeopleData", [p_eventData]);
+				});
+				dojo.subscribe("/ecollege/toolbar/socialdata/PeopleDataPoll/error", this, function(p_eventData) {
+					dojo.publish("/ecollege/toolbar/WhosOnlineWidget/peopleDataError", [p_eventData]);
+				});
+				// forward the polling event from peopledatapoll to chat
+				if (configOverride.manage_social_chat != false) {
+					dojo.subscribe("/ecollege/toolbar/socialdata/PeopleDataPoll/poll", this, function(p_eventData) {
+						dojo.publish("/ecollege/social/chat/updateUserStatus", [p_eventData]);
+					});
+				}
+				// wire up
+				this.peopleDataPoll = new ecollege.toolbar.socialdata.PeopleDataPoll(createServiceConfig(), {defaultAvatarUrl: data.config.root + "/images/person.png"});
+			}
+			if (configOverride.manage_social_keep_me_online != false) {
+				this.keepMeOnline = new ecollege.toolbar.socialdata.KeepMeOnline(createServiceConfig());
+			}
+
+			// Chat
+			if (configOverride.manage_social_chat != false) {
+				dojo.place('<div id="chatContainer"></div>', dojo.body());
+
+				var affinity_token = ecollege.toolbar.Toolbar.data.tokens.affinity_access_token || null;
+				var whit_access_token = ecollege.toolbar.Toolbar.data.tokens.whit_access_token || null;
+				var persona_username = null;
+
+				// attempt to parse the persona username from the affinity token
+				if (affinity_token && affinity_token['match']) {
+					var matches = affinity_token.match(/^.+?(?=:)/gi);
+					if (matches) persona_username = matches[0];
+				}
+
+				if (affinity_token && persona_username) {
+
+					var chatSessionCreds = {
+						userName: persona_username,
+						password: affinity_token,
+						xmppServiceUrl: window.location.protocol + "//" + window.location.host.toLowerCase() + "/http-bind/",
+						xmppDomain: ecollege.toolbar.Toolbar.data.config.xmpp_domain
+					};
+
+					console.log("username:" + persona_username);
+					console.log("xmppServiceUrl:" + chatSessionCreds.xmppServiceUrl);
+
+					this.chatManager = new ecollege.social.chat.ChatManager(chatSessionCreds, "chatContainer");
+
+					// optional debug
+					if (dojo.config.isDebug) {
+						dojo.connect(this.chatManager, "onLogin", function(){
+							console && console.log("Chat Login Success");
+						});
+						dojo.connect(this.chatManager, "onLoginError", function(){
+							console && console.warn("Chat Login Failure");
+						});
+					}
+				}
+				else {
+					console && console.error("Toolbar failed to initialize chat. Affinity access token missing or invalid: " + affinity_token);
+				}
+			}
+		}
+		else {
+			console && console.log("AjaxManager not found: trying again...");
+
+			if (iAjaxMgrCheck <= 100) {
+				iAjaxMgrCheck += 1;
+				window.setTimeout(dojo.hitch(this, this._initSocialWidgets), 100);
+			}
+			else {
+				console && console.error("Toolbar failed to load ecxd.AjaxManager: Social widgets cannot be initialized!");
+			}
+		}
+	},
+
+	_clobberWithGlobalMessage: function(message) {
+        dojo.query(".innerTopContainer", this.domNode)[0].innerHTML = '<div class="toolbar_unavailable">' + message + '</div>';
+//        dojo.query(".googleConsumer").forEach(function(node, index, arr){ dojo.empty( node ) });
+	},
+
+	_insertGoogleAnalytics: function(tracker, inst_name, is_google) {
+		var _gaq = window._gaq || [];
+		_gaq.push(['_setAccount', tracker]);
+		_gaq.push(['_setAllowLinker', true]);
+		if(dojo.exists("window.location.host"))
+			_gaq.push(['_setDomainName', window.location.host]);
+		if(inst_name)
+			_gaq.push(['_setCustomVar', 1, "Institution", inst_name, 3]);
+		if(is_google != undefined)
+			_gaq.push(['_setCustomVar', 2, "Google", ((is_google)?'true':'false'), 3]);
+		_gaq.push(['_trackPageview']);
+		window._gaq = _gaq;
+
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	},
+
+  destroy: function() {
+    dojo.forEach( this._childWidgets, function( w ) {
+        w.destroyRecursive();
+    });
+  }
+
+
+});

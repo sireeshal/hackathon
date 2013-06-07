@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Toolbar Tester</title>
+  <meta charset="utf-8"/>
+  <link rel="stylesheet" href="/style/basecollege.css" type="text/css"/>
+  <link rel="stylesheet" type="text/css"
+        href="https://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dojo/resources/dojo.css"/>
+  <link rel="stylesheet" type="text/css"
+        href="https://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dijit/themes/claro/claro.css"/>
+	<link rel="stylesheet" type="text/css" href="https://exchange.pearsonopenclass.com/assets/bootstrap/css/bootstrap.min.css" media="screen" charset="utf-8"/>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+  <script>
+    var dojoConfig = {
+      isDebug: true,
+      debugAtAllCosts: true,
+      parseOnLoad: false,
+      baseUrl: '/',
+      modulePaths: {
+        ecollege: '/js/ecollege',
+        mustache: '/js/mustache'
+      }
+    };
+
+    function getURLParameter( name ) {
+      name = name.replace( /[\[]/, "\\\[" ).replace( /[\]]/, "\\\]" );
+      var regexS = "[\\?&]" + name + "=([^&#]*)";
+      var regex = new RegExp( regexS );
+      var results = regex.exec( window.location.href );
+      return (results == null ) ? "" : results[1];
+    }
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dojo/dojo.xd.js.uncompressed.js"></script>
+
+  <style>
+    label {
+      width:      100px;
+      float:      left;
+      display:    block;
+      margin-top: 10px;
+    }
+
+    input {
+      padding:    5px;
+      margin-top: 10px;
+      width:      200px;
+      clear:      right;
+      float:      left;
+      display:    block;
+    }
+
+    form {
+      padding-bottom: 30px;
+      margin-bottom:  30px;
+      clear:          both;
+    }
+
+    .googleConsumer {
+    }
+
+    .googleConsumer .hidden {
+      display: none;
+    }
+
+    .googleConsumer .oauthResult {
+      width:                 580px;
+      height:                auto;
+      border:                1px solid;
+      -moz-border-radius:    10px;
+      -webkit-border-radius: 10px;
+      -o-border-radius:      10px;
+      display:               block;
+      margin:                auto;
+      margin-top:            10px;
+    }
+
+    .googleConsumer .dijitButtonNode {
+      background:            none repeat scroll 0 0 #4274B2;
+      color:                 #CECECE;
+      font-size:             12px;
+      font-weight:           normal;
+      line-height:           30px;
+      width:                 200px;
+      margin:                10px 0px 0px 25px;
+      -moz-border-radius:    5px;
+      -webkit-border-radius: 5px;
+      -o-border-radius:      5px;
+    }
+
+    .googleConsumer .addGoogleTokenInfo {
+      font-size: 12px;
+      color:     #848484;
+      word-wrap: break-word;
+      width:     560px;
+    }
+
+    .googleConsumer .addGoogleCheck {
+      width:  auto !important;
+      margin: 10px 5px 0 15px;
+    }
+
+    .googleConsumer .addGoogleCheckLabel {
+      font-size:  14px;
+      width:      auto;
+      margin-top: 5px !important;
+    }
+
+    .googleConsumer .addGoogleResult {
+      padding: 10px;
+    }
+
+  </style>
+
+</head>
+<body class="basecollege" style="padding-top:50px;">
+
+<div id="login" style="padding:50px; width:400px; margin:auto; display:none">
+  <form action="" method="POST">
+    <label for="email">Email</label>
+    <input type="text" name="email" value=""/>
+    <label for="password">Password</label>
+    <input type="text" name="password" value="12345"/>
+    <input id="submit_button" type="submit" style="margin: 10px 0 0 100px;"/>
+  </form>
+</div>
+
+<script>
+
+
+  // fake dashboard load
+  var config = {
+    server: ""
+  };
+
+  function RecordStat() {
+    this.start = new Date().getTime();
+    this.total = 0;
+  }
+
+  RecordStat.prototype = {
+
+    record: function ( name ) {
+
+      var diff = new Date().getTime() - this.start;
+      this.start = new Date().getTime();
+      this.total += diff;
+
+      this._log( {
+        name: name,
+        time: this.total
+      } );
+
+    },
+
+    _log: function ( data ) {
+
+      var url = config.server + '/stats/timer/' + data.name.split( /\s+/ ).join( '.' ) + '/' + data.time + '?_=' + Math.floor( Math.random() * 999999 ) + '.' + new Date().getTime();
+      var head = document.getElementsByTagName( 'head' )[0];
+      var script = document.createElement( 'script' );
+      script.type = 'text/javascript';
+      script.src = url;
+      head.appendChild( script );
+
+    }
+  };
+
+  window.TIMERSTAT = new RecordStat();
+
+  var whit_access_token = getURLParameter( "token" );
+  var whit_refresh_token = getURLParameter( "refresh_token" );
+  var moauth_access_token = getURLParameter( "moauth_token" );
+  var moauth_refresh_token = getURLParameter( "moauth_refresh_token" );
+
+  if ( whit_access_token != "" ) {
+    dojo.require( "ecollege.toolbar.Toolbar" );
+    dojo.addOnLoad( function () {
+      window.ecollege.toolbar.Toolbar.init( {
+        server: "",
+        whit_access_token: whit_access_token,
+        whit_refresh_token: whit_refresh_token
+        /*, consumer:'ph' */
+      } );
+    } );
+  }
+  else if ( moauth_access_token != '' ) {
+    dojo.require( "ecollege.toolbar.Toolbar" );
+    dojo.addOnLoad( function () {
+      window.ecollege.toolbar.Toolbar.init( {
+        server: "",
+        moauth_access_token: moauth_access_token,
+        moauth_refresh_token: moauth_refresh_token
+        /*, consumer:'ph' */
+      } );
+    } );
+  }
+  else {
+    dojo.query( "#login" ).style( { display: "inherit" } );
+  }
+
+  dojo.require( "dojo.io.script" );
+  dojo.connect( dojo.byId( "submit_button" ), "onclick", function ( evt ) {
+    dojo.stopEvent( evt );
+    dojo.io.script.get( {
+      url: "/auth",
+      callbackParamName: "callback",
+      content: {
+        email: dojo.query( "input:email" )[0].value,
+        password: dojo.query( "input[name$=password]" )[0].value
+      },
+      load: function ( data ) {
+        var auth_token = data.data && data.data.data && data.data.data.authToken;
+        console.log( data, auth_token );
+        if ( auth_token ) {
+          window.location = window.location.href + "?token=" + encodeURIComponent( auth_token );
+        }
+      },
+      error: function ( error ) {
+        targetNode.innerHTML = "An unexpected error occurred: " + error;
+      }
+    } );
+  } );
+</script>
+
+
+<script>
+  //  Google Consumer Web Flow
+  if ( whit_access_token ) {
+    dojo.require( 'dijit.form.Button' );
+
+    var force = true;
+
+    dojo.addOnLoad( function () {
+      dojo.require( 'ecollege.toolbar.Toolbar' );
+
+      var toolbarApi = window.ecollege.toolbar.Toolbar.api;
+      var button = new dijit.form.Button( {
+        label: 'Add Google Consumer Account...',
+        baseClass: "googleConsumer",
+        onClick: function () {
+          toolbarApi.startGoogleWebFlow( force );
+
+          var msgCodeObj = dojo.subscribe( 'google-authorization-code', function ( message ) {
+
+            console.log( 'google-authorization-code message ', message );
+
+            if ( message.status === 'success' ) {
+              dojo.byId( 'code' ).innerHTML = '<p>Code: ' + message.data + '</p>';
+            }
+            else {
+              dojo.byId( 'code' ).innerHTML = 'An error occurred: ' + message.data || '';
+            }
+            dojo.unsubscribe( msgCodeObj );
+          } );
+
+          var msgTokenObj = dojo.subscribe( 'google-authorization', function ( message ) {
+
+            console.log( 'google-authorization message ', message );
+
+            if ( message.status === 'success' ) {
+              var tokenObj = message.data;
+              var userObj = toolbarApi.getUser();
+              setTokenContent( tokenObj, userObj );
+            }
+            if ( message.status === 'popup-blocked' ) {
+              console.log( 'Unable to load popup' );
+            }
+            if ( message.status === 'error' ) {
+              dojo.byId( 'code' ).innerHTML = 'An error occurred: ' + message.data || '';
+              console.log( 'web-flow completed with error' );
+            }
+            dojo.unsubscribe( msgTokenObj );
+          } );
+        }
+      }, 'addGoogleService' );
+
+      dojo.byId( 'checkBox' ).checked = force;
+      dojo.connect( dojo.byId( 'checkBox' ), 'onclick', function () {
+        force = dojo.byId( 'checkBox' ).checked;
+      } );
+      dojo.connect( dojo.byId( 'get_user' ), 'onclick', function () {
+        var userObj = toolbarApi.getUser();
+
+        dojo.byId( 'is_google' ).innerHTML = userObj.name + " is " + ( userObj.is_google ? 'a' : 'NOT a') + ' Google user, ';
+        dojo.byId( 'google_type' ).innerHTML = "Google user type = " + userObj.google_type;
+      } );
+      dojo.connect( dojo.byId( 'remove' ), 'onclick', function () {
+        toolbarApi.removeGoogleUser();
+        var msgRemoveUserObj = dojo.subscribe( 'google-remove', function ( message ) {
+
+          console.log( 'google-remove-user message ', message );
+          if ( message.status === 'success' ) {
+            var tokenObj = message.data;
+            dojo.byId( 'remove_status' ).innerHTML = 'Successful';
+            var userObj = toolbarApi.getUser();
+            clearTokenContent( userObj );
+          }
+          else {
+            var errMessage = message.data && message.data.error || null;
+
+            var errText = 'An error occurred'
+            if ( errMessage === 'not-found' ) {
+              errText += ': user not found';
+            }
+            else if ( errMessage === 'Google email not provided' ) {
+              errText += ': ' + errMessage;
+            }
+
+            dojo.byId( 'remove_status' ).innerHTML = errText;
+
+          }
+          dojo.unsubscribe( msgRemoveUserObj );
+        } );
+      } );
+      dojo.removeClass( dojo.byId( 'oauth2' ), 'hidden' );
+      dojo.addClass( dojo.byId( 'oauth2' ), 'oauthResult' );
+    } );
+
+    function setTokenContent( tokenObj, userObj ) {
+      dojo.byId( 'api_email' ).innerHTML = '<a href="#">Test email address</a>' || 'null';
+      dojo.byId( 'remove_user' ).innerHTML = '<div style="float:left;"><a id="remove" href="#">Remove tokens from chamber</a></div><div id="remove_status" style="margin-left:10px;color:red;float:left;"></div>';
+      dojo.byId( 'api_link' ).innerHTML = '<a href="https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=' + tokenObj.access_token + '" target="_blank">Test Token Info</a>' || 'null';
+      dojo.byId( 'account' ).innerHTML = '<a href="https://www.google.com/accounts/b/0/IssuedAuthSubTokens?hl=en"  target="_blank">Manage Access</a>';
+      dojo.byId( 'email' ).innerHTML = 'Email: </strong>' + tokenObj.email || 'null';
+      dojo.byId( 'access_token' ).innerHTML = 'Token: ' + tokenObj.access_token || 'null';
+      dojo.byId( 'refresh_token' ).innerHTML = 'Refresh token: ' + tokenObj.refresh_token || 'null';
+      dojo.byId( 'token_type' ).innerHTML = 'Type: ' + tokenObj.token_type || 'null';
+      dojo.byId( 'expires_in' ).innerHTML = 'Expires in: ' + tokenObj.expires_in + ' seconds' || 'null';
+      dojo.byId( 'id_token' ).innerHTML = 'Token id: ' + tokenObj.id_token || 'null';
+      dojo.byId( 'is_google' ).innerHTML = userObj.name + " is " + ( userObj.is_google ? 'a' : 'NOT a') + ' Google user, ';
+      dojo.byId( 'google_type' ).innerHTML = "Google user type = " + userObj.google_type;
+    }
+
+    function clearTokenContent( userObj ) {
+      dojo.byId( 'code' ).innerHTML = '';
+      dojo.byId( 'api_email' ).innerHTML = '';
+      dojo.byId( 'remove_user' ).innerHTML = '';
+      dojo.byId( 'api_link' ).innerHTML = '';
+      dojo.byId( 'account' ).innerHTML = '';
+      dojo.byId( 'email' ).innerHTML = '';
+      dojo.byId( 'access_token' ).innerHTML = '';
+      dojo.byId( 'refresh_token' ).innerHTML = '';
+      dojo.byId( 'token_type' ).innerHTML = '';
+      dojo.byId( 'expires_in' ).innerHTML = '';
+      dojo.byId( 'id_token' ).innerHTML = '';
+      dojo.byId( 'is_google' ).innerHTML = userObj.name + " is " + ( userObj.is_google ? 'a' : 'NOT a') + ' Google user, ';
+      dojo.byId( 'google_type' ).innerHTML = "Google user type = " + userObj.google_type;
+    }
+  }
+</script>
+
+	<script>
+
+    
+	function searchExchange()
+{
+			var searchData = document.getElementById("search-nav-bar").value;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange=function()
+            {
+  			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    			{
+                            displayResults(xmlhttp.responseText);
+    			}
+  		}
+  				var exchangeUrl = "/exchange?limit=9&offset=0&query=" + searchData;
+
+              	xmlhttp.open("GET",exchangeUrl,true);
+                xmlhttp.setRequestHeader('X-Authorization','1.0|idm|idm|affinity=berlin_4fd0cf4f5ee5f77a12b3425b&berlin=4fd0cf4f50ad230ad5b9ab70&campus=berlin:4fd0cf4f5ee5f77a12b3425b|2013-06-06T16:32:50+00:00|2013-06-06T19:32:50+00:00|75272ad2cb7e4a5b0b30c0764762d33b');
+		xmlhttp.send();
+}
+
+ 	 function displayResults(json) {
+        var hits = JSON.parse(json).hits.hits;
+        var results = ""
+        results += "<label>" + hits.length + " Results</label>";
+        results += "<div id='popular' style='float:left;'>";
+
+        hits.sort(compare);
+
+        for (var i = 0; i < hits.length; i++) {
+            var title = hits[i]._source.title;
+            var titleString = JSON.stringify(hits[i]._source.title);
+            var previewURL = JSON.stringify(hits[i]._source.thumbnailUrl);
+            var url = JSON.stringify(hits[i]._source.url);
+            var description = JSON.stringify(hits[i]._source.description);
+            
+            results += '<button class="btn btn-primary" title=' + description + ' onclick="addToCourse(\'' + title + '\', \'' + hits[i]._source.url + '\' )"><i class="icon-plus icon-white"></i>Add</button>&nbsp;&nbsp;';
+            results += "<img src='MoreInfo.png' title=" + description + " height='20' width='20'/>&nbsp;";
+            results += "<a href=" + url + " target='PreviewPane'>" + title + "</a>&nbsp;&nbsp;";
+            results += "<br/>";
+        }
+        results += "</div>";
+        document.getElementById("results").innerHTML = results;
+    }
+
+    function compare(a, b) {
+        if (a._source.title < b._source.title)
+            return -1;
+        if (a._source.title > b._source.title)
+            return 1;
+        return 0;
+    }
+
+    function addToCourse(title, url) { 
+   alert("inside addtocourse" + title + url)
+	 var linkContent =  {
+	 	
+    	item: {
+        title: title,
+        isDefault: false,
+        isVisible: true,
+        canBePermanentlyDeleted: true,
+        level: 0,
+        cssClass: null,
+        contentType: "HYPERLINK"
+
+	}
+	
+}
+
+	var courseContentUrl = "/course/content";
+	var xmlhttp = new XMLHttpRequest();
+  	xmlhttp.open("POST",courseContentUrl,true);
+    xmlhttp.setRequestHeader('X-Authorization','Access_Token access_token=1.0|27b80213-fc66-4ee1-a1a9-6bf94fa2fb17|idm|berlin=4fd0cf4f50ad230ad5b9ab70&campus=12878679|2013-06-07T02:27:59+00:00|2013-06-07T03:27:59+00:00|548e598a23b0681b9ccef69ecb489f40');
+	xmlhttp.send(linkContent);
+			
+}
+
+</script>
+
+
+<div class="googleConsumer">
+  <div id="oauth2" class="hidden">
+    <div style="float:left;">
+      <button id="addGoogleService" class="addGoogleService">Add Google Consumer Account...</button>
+    </div>
+    <div style="float:left;margin-top:10px">
+      <input class="addGoogleCheck" type="checkbox" name="checkBox" id="checkBox">
+      <label class="addGoogleCheckLabel" for="checkBox">Force Authorize ( New refresh token )</label>
+    </div>
+
+    <div style="clear: both;"></div>
+    <div class="addGoogleResult">
+      <p style="margin:15px;">
+
+      <div class="addGoogleTokenInfo">
+        <div style="float:left;">
+          <a id="remove" href="#">Remove tokens from chamber</a>
+        </div>
+        <div id="remove_status" style="margin-left:10px;color:red;float:left;"></div>
+        <div style="clear: both;"></div>
+        <div style="float:left;">
+          <a id="get_user" href="#">Get user status</a>
+        </div>
+        <div id="is_google" style="margin-left:10px;color:red;float:left;"></div>
+        <div id="google_type" style="margin-left:10px;color:red;float:left;"></div>
+      </div>
+      </p>
+    </div>
+
+    <div class="addGoogleResult">
+      <p style="margin:15px;">
+
+      <div id="code" class="addGoogleTokenInfo"></div>
+      <div id="email" class="addGoogleTokenInfo"></div>
+      <div id="access_token" class="addGoogleTokenInfo"></div>
+      <div id="refresh_token" class="addGoogleTokenInfo"></div>
+      <div id="token_type" class="addGoogleTokenInfo"></div>
+      <div id="expires_in" class="addGoogleTokenInfo"></div>
+      <div id="id_token" style="" class="addGoogleTokenInfo"></div>
+      <div id="account" class="addGoogleTokenInfo"></div>
+      <div id="api_link" class="addGoogleTokenInfo"></div>
+      <div id="api_email" class="addGoogleTokenInfo"></div>
+      <div id="remove_user" class="addGoogleTokenInfo"></div>
+      </p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
